@@ -1,0 +1,467 @@
+<!DOCTYPE html>
+<html lang="zh-Hant">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="description" content="BLACKLINE — 重磅街頭潮流選品。每季限量 200 件，售完即絕版。穿上看不見的態度。">
+  <meta property="og:title" content="BLACKLINE — Drop 04 / SS26">
+  <meta property="og:description" content="重磅布料 · 限量生產 · 不追逐潮流。穿上看不見的態度。">
+  <title>BLACKLINE — 重磅街頭選品</title>
+  <link rel="stylesheet" href="../css/base.css">
+  <link rel="stylesheet" href="../css/index.css">
+</head>
+<body>
+
+  <!-- 跑馬燈 -->
+  <div class="top-marquee">
+    <div class="marquee-track">
+      <span>Drop 04 · SS26 · 12.20 / 18:00 上線</span>
+      <span>滿 NT$ 3,000 免運</span>
+      <span>訂閱搶先取得發售通知</span>
+      <span>限量生產 · 售完即絕版</span>
+      <span>Drop 04 · SS26 · 12.20 / 18:00 上線</span>
+      <span>滿 NT$ 3,000 免運</span>
+      <span>訂閱搶先取得發售通知</span>
+      <span>限量生產 · 售完即絕版</span>
+    </div>
+  </div>
+
+  <!-- HEADER -->
+  <header class="header">
+    <div class="header-container">
+      <a href="../index/index.html" class="logo">
+        <img src="../assets/logo/logo.png" alt="BLACKLINE">
+        <span class="dot"></span>
+      </a>
+
+      <button class="menu-toggle" id="menuToggle" aria-label="開啟選單" aria-expanded="false">
+        <span></span><span></span><span></span>
+      </button>
+
+      <nav class="nav-menu">
+        <a href="../index/index.html" class="active">首頁</a>
+        <a href="../about/about.html">品牌主張</a>
+        <div class="nav-dropdown">
+          <a href="../Product/product.html" class="nav-dropdown-trigger">本季 Drop</a>
+          <div class="nav-dropdown-menu">
+            <a href="../Product/product.html">全部商品</a>
+            <a href="../Product/product.html?category=tees">T 恤 / Tees</a>
+            <a href="../Product/product.html?category=outerwear">外套 / Outerwear</a>
+            <a href="../Product/product.html?category=bottoms">褲款 / Bottoms</a>
+            <a href="../Product/product.html?category=accessories">配件 / Accessories</a>
+          </div>
+        </div>
+        <a href="#footer">聯絡我們</a>
+      </nav>
+
+      <div class="nav-icons">
+        <a href="#">搜尋</a>
+        <a href="#">會員</a>
+        <a href="#">購物車<span class="cart-count">[02]</span></a>
+      </div>
+    </div>
+  </header>
+
+  <!-- Mobile Drawer -->
+  <div class="mobile-drawer" id="mobileDrawer">
+    <div class="mobile-drawer-inner">
+      <a href="../index/index.html" class="drawer-link active">首頁</a>
+      <a href="../about/about.html" class="drawer-link">品牌主張</a>
+      <div class="drawer-dropdown">
+        <button class="drawer-dropdown-toggle" id="drawerDropdownToggle" type="button">
+          本季 Drop <span class="drawer-arrow">⌄</span>
+        </button>
+        <div class="drawer-submenu" id="drawerSubmenu">
+          <a href="../Product/product.html" class="drawer-sublink">全部商品</a>
+          <a href="../Product/product.html?category=tees" class="drawer-sublink">T 恤 / Tees</a>
+          <a href="../Product/product.html?category=outerwear" class="drawer-sublink">外套 / Outerwear</a>
+          <a href="../Product/product.html?category=bottoms" class="drawer-sublink">褲款 / Bottoms</a>
+          <a href="../Product/product.html?category=accessories" class="drawer-sublink">配件 / Accessories</a>
+        </div>
+      </div>
+      <a href="#footer" class="drawer-link">聯絡我們</a>
+      <div class="mobile-drawer-icons">
+        <a href="#">搜尋</a>
+        <a href="#">會員</a>
+        <a href="#">購物車 (2)</a>
+      </div>
+    </div>
+  </div>
+
+  <!-- HERO -->
+  <section class="hero">
+    <div class="hero-grid">
+      <div class="hero-left">
+        <span class="kicker">// Drop 04 — SS26 / Taipei</span>
+        <h1 class="hero-title">
+          <span class="line"><span>穿上</span></span>
+          <span class="line"><span>看不見的</span></span>
+          <span class="line"><span class="accent-text">態度。</span></span>
+        </h1>
+        <p class="hero-sub">Wear the Unseen.</p>
+        <p class="hero-desc">
+          我們不販售風格，我們販售一種讓你被看見的態度。<br>
+          每一季限量 200 件，售完即絕版，不再生產。
+        </p>
+        <div class="hero-cta-row">
+          <a href="../Product/product.html" class="btn btn-accent">
+            進入本季 Drop <span class="arrow">→</span>
+          </a>
+          <a href="../about/about.html" class="btn btn-outline">
+            品牌主張
+          </a>
+        </div>
+
+        <div class="countdown">
+          <div class="countdown-label">
+            <span class="blink"></span>
+            <span class="zh">距離 Drop 04 上線：</span>
+            Releases In
+          </div>
+          <div class="countdown-timer">
+            <div class="countdown-unit">
+              <span class="countdown-num" id="days">03</span>
+              <span class="countdown-text"><span class="zh">天</span>Days</span>
+            </div>
+            <div class="countdown-unit">
+              <span class="countdown-num" id="hours">14</span>
+              <span class="countdown-text"><span class="zh">時</span>Hours</span>
+            </div>
+            <div class="countdown-unit">
+              <span class="countdown-num" id="minutes">22</span>
+              <span class="countdown-text"><span class="zh">分</span>Minutes</span>
+            </div>
+            <div class="countdown-unit">
+              <span class="countdown-num" id="seconds">08</span>
+              <span class="countdown-text"><span class="zh">秒</span>Seconds</span>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <div class="hero-right">
+        <span class="hero-image-tag">№ 042 / Lookbook</span>
+        <img src="https://images.unsplash.com/photo-1490481651871-ab68de25d43d?auto=format&fit=crop&w=900&q=80" alt="Drop 04 Lookbook">
+        <div class="hero-image-meta">
+          <span class="line-deco">
+            <span class="zh">攝於 西門町</span>
+          </span><br>
+          Taipei · 2026.01
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- MANIFESTO 品牌主張 -->
+  <section class="manifesto">
+    <div class="manifesto-container">
+      <div class="manifesto-kicker">
+        <span class="kicker">// Manifesto / 品牌主張</span>
+      </div>
+      <h2 class="manifesto-title">
+        We don't sell <span class="strike">trends</span>.<br>
+        We sell <span class="glow">attitude.</span>
+      </h2>
+      <p class="manifesto-subtitle">
+        我們不追逐潮流，<br>
+        我們販售<span class="accent-text">態度</span>。
+      </p>
+      <p class="manifesto-desc">
+        <span class="mono">// No logos. No hype. No collabs. //</span>
+        沒有 logo 轟炸，沒有炒作話術，沒有聯名疲勞。<br>
+        只有重磅布料、刻意的剪裁，與一種拒絕被定義的姿態。<br>
+        每一季限量生產，由不需要被允許的人穿上。
+      </p>
+    </div>
+  </section>
+
+  <!-- LATEST DROP 本季精選 -->
+  <section class="drop-section">
+    <div class="section-head">
+      <h2>
+        <span class="small">// Latest / Drop 04</span>
+        本季陣容。
+      </h2>
+      <a href="../Product/product.html" class="section-head-link">全部商品 →</a>
+    </div>
+
+    <div class="drop-grid">
+      <a href="../product-detail/product-detail.html" class="product-card">
+        <div class="product-card-img">
+          <span class="product-card-num">№ 042</span>
+          <span class="product-card-badge">New</span>
+          <img src="https://images.unsplash.com/photo-1581655353564-df123a1eb820?auto=format&fit=crop&w=600&q=80" alt="重磅 Box Tee">
+        </div>
+        <span class="product-card-tag">Tees · 280gsm</span>
+        <h3 class="product-card-name">Heavyweight Box Tee</h3>
+        <p class="product-card-name-zh">重磅落肩短 T</p>
+        <div class="product-card-sizes">
+          <span class="sold-out">XS</span>
+          <span class="in-stock">S</span>
+          <span class="in-stock">M</span>
+          <span class="in-stock">L</span>
+          <span class="available">XL</span>
+        </div>
+        <div class="product-card-footer">
+          <span class="product-card-price">NT$ 1,280</span>
+          <span class="product-card-link">View →</span>
+        </div>
+      </a>
+
+      <a href="../product-detail/product-detail.html" class="product-card">
+        <div class="product-card-img">
+          <span class="product-card-num">№ 043</span>
+          <img src="https://images.unsplash.com/photo-1556821840-3a63f95609a7?auto=format&fit=crop&w=600&q=80" alt="連帽外套">
+        </div>
+        <span class="product-card-tag">Outerwear · 450gsm</span>
+        <h3 class="product-card-name">Tonal Logo Hoodie</h3>
+        <p class="product-card-name-zh">同色刺繡連帽外套</p>
+        <div class="product-card-sizes">
+          <span class="in-stock">S</span>
+          <span class="in-stock">M</span>
+          <span class="in-stock">L</span>
+          <span class="available">XL</span>
+        </div>
+        <div class="product-card-footer">
+          <span class="product-card-price">NT$ 2,880</span>
+          <span class="product-card-link">View →</span>
+        </div>
+      </a>
+
+      <a href="../product-detail/product-detail.html" class="product-card">
+        <div class="product-card-img">
+          <span class="product-card-num">№ 044</span>
+          <span class="product-card-badge">Hot</span>
+          <img src="https://images.unsplash.com/photo-1473966968600-fa801b869a1a?auto=format&fit=crop&w=600&q=80" alt="工裝褲">
+        </div>
+        <span class="product-card-tag">Bottoms · Ripstop</span>
+        <h3 class="product-card-name">Utility Cargo Pants</h3>
+        <p class="product-card-name-zh">機能工裝長褲</p>
+        <div class="product-card-sizes">
+          <span class="in-stock">28</span>
+          <span class="in-stock">30</span>
+          <span class="in-stock">32</span>
+          <span class="available">34</span>
+        </div>
+        <div class="product-card-footer">
+          <span class="product-card-price">NT$ 2,480</span>
+          <span class="product-card-link">View →</span>
+        </div>
+      </a>
+
+      <a href="../product-detail/product-detail.html" class="product-card">
+        <div class="product-card-img">
+          <span class="product-card-num">№ 045</span>
+          <img src="https://images.unsplash.com/photo-1576871337632-b9aef4c17ab9?auto=format&fit=crop&w=600&q=80" alt="毛帽">
+        </div>
+        <span class="product-card-tag">Accessories</span>
+        <h3 class="product-card-name">Ribbed Knit Beanie</h3>
+        <p class="product-card-name-zh">羅紋針織毛帽</p>
+        <div class="product-card-sizes">
+          <span class="in-stock">One Size · 均碼</span>
+        </div>
+        <div class="product-card-footer">
+          <span class="product-card-price">NT$ 580</span>
+          <span class="product-card-link">View →</span>
+        </div>
+      </a>
+    </div>
+  </section>
+
+  <!-- CATEGORIES 商品分類 -->
+  <section class="cat-section">
+    <div class="section-head">
+      <h2>
+        <span class="small">// Shop By Category</span>
+        分類選購。
+      </h2>
+      <a href="../Product/product.html" class="section-head-link">全部分類 →</a>
+    </div>
+
+    <div class="cat-grid">
+      <a href="../Product/product.html?category=tees" class="cat-item">
+        <img src="https://images.unsplash.com/photo-1521572163474-6864f9cf17ab?auto=format&fit=crop&w=900&q=80" alt="T 恤系列">
+        <div class="cat-overlay">
+          <span class="cat-num">01 / Tees</span>
+          <h3 class="cat-name">Heavyweight<br>Essentials.</h3>
+          <p class="cat-name-zh">重磅 T 恤系列</p>
+          <span class="cat-desc">
+            <span class="zh">立即選購</span> <span>·</span> Explore <span class="arrow">→</span>
+          </span>
+        </div>
+      </a>
+
+      <a href="../Product/product.html?category=outerwear" class="cat-item">
+        <img src="https://images.unsplash.com/photo-1551488831-00ddcb6c6bd3?auto=format&fit=crop&w=900&q=80" alt="外套系列">
+        <div class="cat-overlay">
+          <span class="cat-num">02 / Outerwear</span>
+          <h3 class="cat-name">For The<br>Streets.</h3>
+          <p class="cat-name-zh">街頭外套系列</p>
+          <span class="cat-desc">
+            <span class="zh">立即選購</span> <span>·</span> Explore <span class="arrow">→</span>
+          </span>
+        </div>
+      </a>
+
+      <a href="../Product/product.html?category=bottoms" class="cat-item">
+        <img src="https://images.unsplash.com/photo-1624378439575-d8705ad7ae80?auto=format&fit=crop&w=900&q=80" alt="褲款系列">
+        <div class="cat-overlay">
+          <span class="cat-num">03 / Bottoms</span>
+          <h3 class="cat-name">Utility<br>Cuts.</h3>
+          <p class="cat-name-zh">工裝褲款系列</p>
+          <span class="cat-desc">
+            <span class="zh">立即選購</span> <span>·</span> Explore <span class="arrow">→</span>
+          </span>
+        </div>
+      </a>
+
+      <a href="../Product/product.html?category=accessories" class="cat-item">
+        <img src="https://images.unsplash.com/photo-1556306535-0f09a537f0a3?auto=format&fit=crop&w=900&q=80" alt="配件系列">
+        <div class="cat-overlay">
+          <span class="cat-num">04 / Accessories</span>
+          <h3 class="cat-name">Small<br>Details.</h3>
+          <p class="cat-name-zh">細節配件系列</p>
+          <span class="cat-desc">
+            <span class="zh">立即選購</span> <span>·</span> Explore <span class="arrow">→</span>
+          </span>
+        </div>
+      </a>
+    </div>
+  </section>
+
+  <!-- NEWSLETTER 訂閱 -->
+  <section class="news-strip">
+    <div class="news-container">
+      <div>
+        <h2 class="news-title">
+          <span class="small">// Early Access / 搶先取得</span>
+          訂閱下季發售通知。
+        </h2>
+        <p class="news-sub">Sign up for the next drop.</p>
+      </div>
+      <form class="news-form" onsubmit="event.preventDefault(); alert('已訂閱成功');">
+        <input type="email" placeholder="輸入 Email" required>
+        <button type="submit">訂閱 →</button>
+      </form>
+    </div>
+  </section>
+
+  <!-- FOOTER -->
+  <footer id="footer" class="footer-main">
+    <div class="footer-top-container">
+      <div class="footer-brand">
+        <a href="../index/index.html" class="logo">
+          <img src="../assets/logo/logo02.png" alt="BLACKLINE">
+          <span class="dot"></span>
+        </a>
+        <p>
+          來自台北的重磅街頭服飾。<br>
+          重磅布料、限量生產、絕不妥協。<br>
+          穿上你選擇被看見的樣子。
+        </p>
+      </div>
+
+      <div class="footer-column">
+        <h4>快速連結</h4>
+        <ul>
+            <li><a href="../index/index.html">首頁</a></li>
+            <li><a href="../about/about.html">品牌故事</a></li>
+            <li><a href="../Product/product.html">所有選品</a></li>
+          </ul>
+      </div>
+
+      <div class="footer-column">
+        <h4>隱私權政策</h4>
+        <ul>
+          <li><a href="#">服務條款</a></li>
+          <li><a href="#">退換貨政策</a></li>
+          <li><a href="#">免責聲明</a></li>
+        </ul>
+      </div>
+
+      <div class="footer-column">
+        <h4>追蹤我們</h4>
+        <ul>
+          <li><a href="#">Instagram</a></li>
+          <li><a href="#">Line</a></li>
+          <li><a href="#">Facebook</a></li>
+        </ul>
+      </div>
+
+      <div class="footer-column">
+        <h4>客服</h4>
+        <p>hello@blackline.tpe</p>
+        <p>週一至週五 / 11:00 - 19:00</p>
+        <p>台北 · 台灣</p>
+      </div>
+    </div>
+
+    <div class="footer-big-text">BLACKLINE</div>
+
+    <div class="footer-bottom">
+      <p>© 2026 BLACKLINE · All Rights Reserved.</p>
+
+    </div>
+  </footer>
+
+  <script>
+    // ── Header / Drawer ──
+    const menuToggle = document.getElementById('menuToggle');
+    const mobileDrawer = document.getElementById('mobileDrawer');
+    const drawerDropdownToggle = document.getElementById('drawerDropdownToggle');
+    const drawerSubmenu = document.getElementById('drawerSubmenu');
+
+    if (menuToggle && mobileDrawer) {
+      menuToggle.addEventListener('click', () => {
+        menuToggle.classList.toggle('active');
+        mobileDrawer.classList.toggle('active');
+        menuToggle.setAttribute(
+          'aria-expanded',
+          menuToggle.classList.contains('active')
+        );
+      });
+    }
+
+    if (drawerDropdownToggle && drawerSubmenu) {
+      drawerDropdownToggle.addEventListener('click', () => {
+        drawerDropdownToggle.classList.toggle('active');
+        drawerSubmenu.classList.toggle('active');
+      });
+    }
+
+    // ── 倒數計時 ──
+    // 預設：當前時間 + 3天14小時22分8秒（實際上線時客戶會給確切日期）
+    const target = new Date();
+    target.setDate(target.getDate() + 3);
+    target.setHours(target.getHours() + 14);
+    target.setMinutes(target.getMinutes() + 22);
+
+    function pad(n) { return String(n).padStart(2, '0'); }
+
+    function tickCountdown() {
+      const now = new Date();
+      let diff = Math.max(0, target - now);
+      const d = Math.floor(diff / (1000 * 60 * 60 * 24));
+      diff -= d * 1000 * 60 * 60 * 24;
+      const h = Math.floor(diff / (1000 * 60 * 60));
+      diff -= h * 1000 * 60 * 60;
+      const m = Math.floor(diff / (1000 * 60));
+      diff -= m * 1000 * 60;
+      const s = Math.floor(diff / 1000);
+
+      const elDays    = document.getElementById('days');
+      const elHours   = document.getElementById('hours');
+      const elMinutes = document.getElementById('minutes');
+      const elSeconds = document.getElementById('seconds');
+
+      if (elDays)    elDays.textContent    = pad(d);
+      if (elHours)   elHours.textContent   = pad(h);
+      if (elMinutes) elMinutes.textContent = pad(m);
+      if (elSeconds) elSeconds.textContent = pad(s);
+    }
+
+    tickCountdown();
+    setInterval(tickCountdown, 1000);
+  </script>
+</body>
+</html>
