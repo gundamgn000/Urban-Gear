@@ -414,6 +414,15 @@
       track.style.transform = `translateX(-${currentIndex * (width + gap)}px)`;
     }
 
+    const toolbar = document.querySelector('.product-list-toolbar');
+
+    if (toolbar && updateUrl) {
+      toolbar.scrollIntoView({
+        behavior: 'smooth',
+        block: 'start'
+      });
+    }
+
     nextBtn.addEventListener('click', () => {
       if (currentIndex < getMaxIndex()) { currentIndex++; updateCarousel(); }
     });

@@ -106,14 +106,19 @@
 
     <!-- Toolbar 分類 -->
     <section class="product-list-toolbar">
-      <div class="product-list-categories">
-        <button class="category-chip active" type="button" data-category="all">全部 · All</button>
-        <button class="category-chip" type="button" data-category="tees">T 恤 · Tees</button>
-        <button class="category-chip" type="button" data-category="outerwear">外套 · Outerwear</button>
-        <button class="category-chip" type="button" data-category="bottoms">褲款 · Bottoms</button>
-        <button class="category-chip" type="button" data-category="accessories">配件 · Accessories</button>
+      <div class="product-list-toolbar-inner">
+
+        <div class="product-list-categories">
+          <button class="category-chip active" type="button" data-category="all">全部 · All</button>
+          <button class="category-chip" type="button" data-category="tees">T 恤 · Tees</button>
+          <button class="category-chip" type="button" data-category="outerwear">外套 · Outerwear</button>
+          <button class="category-chip" type="button" data-category="bottoms">褲款 · Bottoms</button>
+          <button class="category-chip" type="button" data-category="accessories">配件 · Accessories</button>
+        </div>
+
+        <div class="product-list-meta"><span>共 8 件商品</span></div>
+
       </div>
-      <div class="product-list-meta"><span>共 8 件商品</span></div>
     </section>
 
     <!-- Product Grid -->
@@ -415,8 +420,28 @@
       }
     }
 
+    function scrollToMarquee() {
+      const marquee = document.querySelector('.top-marquee');
+      if (!marquee) return;
+
+      marquee.scrollIntoView({
+        behavior: 'smooth',
+        block: 'start'
+      });
+    }
+
     categoryButtons.forEach(btn =>
-      btn.addEventListener('click', () => filterProducts(btn.dataset.category))
+      btn.addEventListener('click', () => {
+        filterProducts(btn.dataset.category);
+        scrollToMarquee();
+
+        // active chip 自動滑動到可視區域
+        btn.scrollIntoView({
+          behavior: 'smooth',
+          inline: 'center',
+          block: 'nearest'
+        });
+      })
     );
 
     const init = new URLSearchParams(window.location.search).get('category') || 'all';
