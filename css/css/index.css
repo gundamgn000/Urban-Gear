@@ -1,4 +1,8 @@
 /* =========================================
+   BLACKLINE — Index Page
+   ========================================= */
+
+/* =========================================
    HERO
    ========================================= */
 .hero {
@@ -650,6 +654,54 @@
 }
 
 /* =========================================
+   Responsive
+   ========================================= */
+@media (max-width: 1100px) {
+  .drop-grid { grid-template-columns: repeat(2, 1fr); }
+}
+
+@media (max-width: 768px) {
+  .hero-grid {
+    display: grid;
+    grid-template-columns: 1fr;
+    gap: 32px;
+    padding: 56px 20px;
+    min-height: auto;
+  }
+
+  .hero-left {
+    transform: none;
+    max-width: none;
+    padding: 28px 22px;
+  }
+
+  .hero-title {
+    font-size: clamp(52px, 17vw, 78px);
+  }
+
+  .hero-right.hero-stack {
+    height: auto;
+    aspect-ratio: 4 / 3;
+    margin-left: 0;
+  }
+
+  .hero-layer-mid,
+  .hero-layer-back {
+    display: none;
+  }
+
+  .hero-layer-front {
+    position: absolute;
+    inset: 0;
+  }
+}
+
+@media (max-width: 480px) {
+  .drop-grid { grid-template-columns: 1fr; }
+  .countdown-num { font-size: 28px; }
+}
+
+/* =========================================
    Urban Field Manual — Index Override
    ========================================= */
 .hero {
@@ -1016,8 +1068,71 @@
   width: 100%;
 }
 
+@media (max-width: 900px) {
+  .manifesto-container {
+    display: block;
+  }
+  .manifesto-kicker {
+    writing-mode: initial;
+    margin-bottom: var(--space-4);
+  }
+}
+
+@media (max-width: 760px) {
+  .drop-grid,
+  .cat-grid {
+    grid-template-columns: 1fr;
+  }
+
+  .product-card:not(:first-child) {
+    display: flex;
+  }
+
+  .product-card:not(:first-child) .product-card-img {
+    aspect-ratio: 4/5;
+    height: auto;
+    margin-bottom: var(--space-3);
+  }
+
+  .cat-item:nth-child(2) {
+    grid-row: auto;
+  }
+}
+
+/* Mobile containment for shifted homepage */
+@media (max-width: 900px) {
+  .hero,
+  .manifesto,
+  .drop-section,
+  .cat-section,
+  .news-strip {
+    max-width: 100vw;
+    overflow-x: hidden;
+  }
+
+  .hero-grid,
+  .manifesto-container,
+  .drop-grid,
+  .cat-grid,
+  .news-container {
+    max-width: 100%;
+  }
+
+  .hero-title {
+    font-size: clamp(54px, 17vw, 76px);
+  }
+
+  .manifesto::before {
+    left: auto;
+    right: -10px;
+    transform: translateY(-50%);
+    font-size: clamp(96px, 28vw, 150px);
+  }
+}
+
 /* =========================================
-   UNIT-04 Hero Folder Stack — Desktop
+   UNIT-04 Hero Folder Stack — Final
+   Hero 圖片資料夾堆疊 / 多層 UI
    ========================================= */
 @media (min-width: 901px) {
   .hero {
@@ -1051,6 +1166,7 @@
     pointer-events: none;
   }
 
+  /* 左側資料層 */
   .hero-left {
     grid-column: 1 / 7;
     grid-row: 1;
@@ -1115,12 +1231,13 @@
     border-left-color: rgba(247, 248, 242, 0.18);
   }
 
+  /* 右側圖片資料夾舞台 */
   .hero-right.hero-stack {
     grid-column: 6 / 13;
     grid-row: 1;
     align-self: center;
     width: 100%;
-    height: 660px;
+    height: 680px;
     min-height: 0;
     aspect-ratio: auto;
     position: relative;
@@ -1129,7 +1246,7 @@
     background: transparent;
     border: none;
     clip-path: none;
-    margin-left: 110px;
+    margin-left: 80px;
   }
 
   .hero-right.hero-stack::before,
@@ -1142,7 +1259,8 @@
   .hero-right.hero-stack::before {
     inset: 56px -34px -28px 70px;
     z-index: 0;
-    background: linear-gradient(135deg, rgba(23, 32, 27, 0.10), rgba(23, 32, 27, 0.03));
+    background:
+      linear-gradient(135deg, rgba(23, 32, 27, 0.10), rgba(23, 32, 27, 0.03));
     border: 1px solid rgba(23, 32, 27, 0.13);
     filter: blur(2px);
   }
@@ -1160,9 +1278,8 @@
     overflow: hidden;
     border: 1px solid rgba(23, 32, 27, 0.32);
     background: #c7cec0;
-    will-change: transform, opacity;
     transition:
-      transform 0.85s cubic-bezier(0.2, 0.8, 0.2, 1),
+      transform 0.72s cubic-bezier(0.2, 0.8, 0.2, 1),
       opacity 0.45s ease,
       filter 0.45s ease;
   }
@@ -1171,37 +1288,51 @@
     width: 100%;
     height: 100%;
     object-fit: cover;
+    transform: scale(1);
     transition:
-      transform 0.85s cubic-bezier(0.2, 0.8, 0.2, 1),
-      filter 0.45s ease,
-      opacity 0.45s ease;
+      transform 0.72s cubic-bezier(0.2, 0.8, 0.2, 1),
+      filter 0.45s ease;
+  }
+
+  .hero-layer-label,
+  .hero-image-tag {
+    position: absolute;
+    z-index: 5;
+    top: 18px;
+    right: 18px;
+    background: rgba(247, 248, 242, 0.76);
+    color: rgba(23, 32, 27, 0.62);
+    backdrop-filter: blur(8px);
+    padding: 7px 11px;
+    font-family: var(--font-mono);
+    font-size: 10px;
+    font-weight: 700;
+    letter-spacing: 0.16em;
+    text-transform: uppercase;
+    white-space: nowrap;
   }
 
   .hero-layer-front {
-    inset: 72px 0 44px 90px;
-    z-index: 5;
+    inset: 0 0 0 0;
+    z-index: 4;
     clip-path: polygon(0 0, 90% 0, 100% 12%, 100% 100%, 0 100%);
-    box-shadow: 18px 18px 0 rgba(23, 32, 27, 0.08);
-  }
-
-  .hero-layer-front::before {
-    display: none;
   }
 
   .hero-layer-front img {
-    object-position: center 62%;
-    transform: scale(1.08);
     filter: saturate(0.76) contrast(1.05) brightness(0.98);
   }
+  .hero-layer-front::before {
+  display: none;
+}
 
   .hero-layer-mid {
     width: 54%;
-    height: 42%;
-    left: 0;
-    bottom: 24px;
-    z-index: 4;
-    opacity: 0.78;
-    transform: translate(-34px, 34px) scale(0.94);
+    height: 44%;
+    left: 4%;
+    bottom: -4%;
+    z-index: 3;
+    opacity: 0.92;
+    transform: translate(-34px, 34px) scale(0.92);
     clip-path: polygon(0 0, calc(100% - 22px) 0, 100% 22px, 100% 100%, 0 100%);
   }
 
@@ -1210,13 +1341,13 @@
   }
 
   .hero-layer-back {
-    width: 56%;
-    height: 44%;
-    right: 8px;
-    top: 24px;
-    z-index: 3;
-    opacity: 0.52;
-    transform: translate(34px, -24px) scale(0.9);
+    width: 46%;
+    height: 36%;
+    right: -4%;
+    top: 7%;
+    z-index: 2;
+    opacity: 0.62;
+    transform: translate(38px, -26px) scale(0.88);
     clip-path: polygon(0 0, calc(100% - 18px) 0, 100% 18px, 100% 100%, 0 100%);
   }
 
@@ -1241,95 +1372,27 @@
   }
 
   .hero-stack:hover .hero-layer-front {
-    transform: translate(-30px, -18px) scale(1.03);
+    transform: translate(-22px, -12px) scale(1.025);
   }
 
   .hero-stack:hover .hero-layer-front img {
-    transform: scale(1.12);
+    transform: scale(1.035);
     filter: saturate(0.94) contrast(1.08) brightness(1);
   }
 
   .hero-stack:hover .hero-layer-mid {
-    transform: translate(-64px, 48px) scale(0.98);
-    opacity: 0.92;
+    transform: translate(-48px, 42px) scale(0.95);
+    opacity: 1;
   }
 
   .hero-stack:hover .hero-layer-back {
-    transform: translate(64px, -40px) scale(0.94);
-    opacity: 0.68;
-  }
-
-  .hero-layer.is-switching {
-    filter: blur(1px);
+    transform: translate(52px, -34px) scale(0.9);
+    opacity: 0.72;
   }
 }
 
-/* =========================================
-   Responsive — Consolidated
-   手機 / 平板統一整理
-   ========================================= */
-@media (max-width: 1100px) {
-  .drop-grid {
-    grid-template-columns: repeat(2, 1fr);
-  }
-
-  .drop-grid .product-card:nth-child(3) {
-    transform: none;
-  }
-}
-
+/* 平板與手機：回到穩定上下排，不做複雜堆疊 */
 @media (max-width: 900px) {
-  .hero,
-  .manifesto,
-  .drop-section,
-  .cat-section,
-  .news-strip {
-    max-width: 100vw;
-    overflow-x: hidden;
-  }
-
-  .hero-grid,
-  .manifesto-container,
-  .drop-grid,
-  .cat-grid,
-  .news-container {
-    max-width: 100%;
-  }
-
-  .hero-grid {
-    display: grid;
-    grid-template-columns: 1fr;
-    gap: 32px;
-    padding: 56px 20px;
-    min-height: auto;
-  }
-
-  .hero-left {
-    transform: none;
-    max-width: none;
-    padding: 28px 22px;
-  }
-
-  .hero-title {
-    font-size: clamp(54px, 17vw, 76px);
-  }
-
-  .hero-desc {
-    padding: 0;
-    background: transparent;
-    border-left: none;
-  }
-
-  .countdown {
-    padding: var(--space-4);
-  }
-
-  .countdown-timer {
-    display: grid;
-    grid-template-columns: repeat(2, 1fr);
-    gap: 12px;
-  }
-
   .hero-right.hero-stack {
     position: relative;
     height: auto;
@@ -1355,160 +1418,86 @@
   .hero-layer-back {
     display: none;
   }
-
-  .hero-image-meta {
-    right: 14px;
-    bottom: 14px;
-  }
-
-  .manifesto {
-    padding: 72px 20px;
-  }
-
-  .manifesto::before {
-    left: auto;
-    right: -10px;
-    transform: translateY(-50%);
-    font-size: clamp(96px, 28vw, 150px);
-  }
-
-  .manifesto-container {
-    display: block;
-    padding: var(--space-4);
-  }
-
-  .manifesto-kicker {
-    writing-mode: initial;
-    margin-bottom: var(--space-4);
-  }
-
-  .drop-section,
-  .cat-section {
-    padding: 72px 20px;
-  }
-
-  .drop-grid {
-  grid-template-columns: repeat(2, 1fr);
-  gap: 18px;
-  background: transparent;
-  border: none;
-  }
-
-  .cat-grid {
-    grid-template-columns: repeat(2, 1fr);
-    gap: 14px;
-    background: transparent;
-    border: none;
-  }
-
-  .drop-grid .product-card,
-  .drop-grid .product-card:nth-child(3) {
-    transform: none !important;
-    min-height: auto;
-  }
-
-  .product-card:first-child {
-    grid-row: auto;
-  }
-
-  .product-card:first-child .product-card-img,
-  .product-card:not(:first-child) .product-card-img,
-  .product-card-img {
-    aspect-ratio: 4 / 3;
-    height: auto;
-    min-height: 0;
-    margin-bottom: var(--space-3);
-  }
-
-  .product-card:not(:first-child) {
-    display: flex;
-    flex-direction: column;
-  }
-
-  .product-card:not(:first-child) .product-card-tag,
-  .product-card:not(:first-child) .product-card-name,
-  .product-card:not(:first-child) .product-card-name-zh,
-  .product-card:not(:first-child) .product-card-sizes,
-  .product-card:not(:first-child) .product-card-footer {
-    grid-column: auto;
-  }
-
-  .cat-item:nth-child(2) {
-    grid-row: auto;
-  }
-
-  .news-container {
-    grid-template-columns: 1fr;
-  }
-
-  .news-form {
-    width: 100%;
-  }
-
-  .news-form input {
-    width: 100%;
-  }
-
-  .cat-item {
-  aspect-ratio: auto;
-  min-height: 230px;
- }
-
-  .cat-overlay {
-    padding: 18px;
-  }
-
-  .cat-name {
-    font-size: clamp(32px, 8vw, 48px);
-    line-height: 0.95;
-  }
-
-  .cat-name-zh {
-    font-size: 13px;
-    margin-bottom: 12px;
-  }
-
-  .cat-desc {
-    font-size: 10px;
-  }
-  
 }
 
-@media (max-width: 480px) {
-  .hero-title {
-    font-size: clamp(50px, 16vw, 68px);
+@media (min-width: 901px) {
+  .hero-right.hero-stack {
+    height: 660px;
+    margin-left: 110px;
   }
 
-  .hero-sub {
-    font-size: 13px;
+  .hero-layer-front {
+    inset: 72px 0 44px 90px;
+    z-index: 5;
+    box-shadow: 18px 18px 0 rgba(23,32,27,.08);
   }
 
-  .countdown-num {
-    font-size: 28px;
+  .hero-layer-mid {
+    width: 54%;
+    height: 42%;
+    left: 0;
+    bottom: 24px;
+    z-index: 4;
+    opacity: .78;
+    transform: translate(-34px, 34px) scale(.94);
   }
 
-  .drop-section,
-  .cat-section {
-    padding: 56px 16px;
-  }
-  .cat-item {
-  aspect-ratio: 4 / 3;
-  min-height: 260px;
-  }
-
-  .cat-overlay {
-    padding: 22px;
+  .hero-layer-back {
+    width: 56%;
+    height: 44%;
+    right: 8px;
+    top: 24px;
+    z-index: 3;
+    opacity: .52;
+    transform: translate(34px, -24px) scale(.9);
   }
 
-  .cat-name {
-    font-size: clamp(28px, 11vw, 42px);
+  .hero-layer img {
+    transition:
+      transform .85s cubic-bezier(.2,.8,.2,1),
+      filter .45s,
+      opacity .45s;
   }
 
-  .cat-grid {
-    grid-template-columns: 1fr;
+  .hero-stack:hover .hero-layer-front {
+    transform: translate(-30px, -18px) scale(1.03);
   }
 
-  .cat-item {
-    min-height: 260px;
+  .hero-stack:hover .hero-layer-front img {
+    transform: scale(1.05);
+  }
+
+  .hero-stack:hover .hero-layer-mid {
+    transform: translate(-64px, 48px) scale(.98);
+    opacity: .92;
+  }
+
+  .hero-stack:hover .hero-layer-back {
+    transform: translate(64px, -40px) scale(.94);
+    opacity: .68;
+  }
+
+  .hero-layer-label {
+    opacity: .72;
   }
 }
+
+@media (min-width: 901px) {
+  .hero-layer-front img {
+    object-position: center 62%;
+    transform: scale(1.08);
+  }
+
+  .hero-stack:hover .hero-layer-front img {
+    transform: scale(1.12);
+  }
+}
+
+.hero-layer {
+  will-change: transform, opacity;
+}
+
+.hero-layer.is-switching {
+  filter: blur(1px);
+}
+

@@ -678,3 +678,300 @@
 
   .detail-process { grid-template-columns: 1fr; }
 }
+
+/* =========================================
+   Urban Field Manual — About Override
+   ========================================= */
+.about-page,
+.about-hero,
+.about-story-section {
+  background: transparent;
+}
+
+.about-hero {
+  border-bottom: 2px solid var(--text-primary);
+}
+
+.about-hero::before {
+  content: "FIELD";
+  color: rgba(23,32,27,0.06);
+}
+
+.about-hero-image,
+.detail-img {
+  border: 1px solid var(--text-primary);
+  clip-path: polygon(0 0, calc(100% - 20px) 0, 100% 20px, 100% 100%, 0 100%);
+}
+
+.about-hero-image img,
+.story-gallery-item img,
+.detail-img img {
+  filter: saturate(0.58) contrast(1.05);
+}
+
+.about-hero-image:hover img,
+.story-gallery-item:hover img,
+.detail-img:hover img {
+  filter: saturate(0.94) contrast(1.06);
+}
+
+.about-hero-image-tag,
+.detail-img-tag,
+.story-gallery-item::after {
+  background: var(--text-primary);
+  color: var(--bg-page);
+}
+
+.about-hero-text h1 .accent-text,
+.detail-content .detail-sub,
+.stat-num {
+  color: var(--accent);
+  font-style: normal;
+}
+
+.about-stats {
+  background: rgba(247,248,242,0.78);
+  border: 1px solid var(--border-line);
+  border-top: 2px solid var(--text-primary);
+}
+
+.stat-item {
+  padding: var(--space-4);
+}
+
+.about-manifesto-wall {
+  background: #17201B;
+  color: #F7F8F2;
+}
+
+.about-manifesto-wall::before {
+  content: "MODULE";
+  color: rgba(247,248,242,0.05);
+  font-size: clamp(120px, 22vw, 300px);
+}
+
+.manifesto-wall-title,
+.manifesto-wall-sub {
+  color: #F7F8F2;
+}
+
+.manifesto-wall-title .glow,
+.manifesto-wall-sub .accent-text,
+.manifesto-wall-desc .mono {
+  color: var(--accent);
+}
+
+.manifesto-wall-desc {
+  color: rgba(247,248,242,0.72);
+}
+
+.story-gallery-grid,
+.values-grid {
+  gap: var(--space-3);
+  background: transparent;
+  border: none;
+}
+
+.story-gallery-item,
+.value-item {
+  background: rgba(247,248,242,0.82);
+  border: 1px solid var(--border-line);
+}
+
+.value-item:hover {
+  background: #FFFFFF;
+  box-shadow: 0 18px 44px rgba(23,32,27,0.1);
+}
+
+.value-item::before {
+  color: rgba(23,32,27,0.06);
+}
+
+.detail-row {
+  background: rgba(247,248,242,0.72);
+  border: 1px solid var(--border-line);
+  padding: var(--space-5);
+}
+
+.detail-process {
+  border-top: 2px solid var(--text-primary);
+}
+
+@media (max-width: 960px) {
+  .detail-row { padding: var(--space-4); }
+}
+
+/* =========================================
+   Urban Field Manual — About Layout Shift V2
+   ========================================= */
+@media (min-width: 961px) {
+  .about-hero-container {
+    grid-template-columns: repeat(12, minmax(0, 1fr));
+    gap: var(--space-4);
+    min-height: 760px;
+  }
+
+  .about-hero-image {
+    grid-column: 1 / 8;
+    grid-row: 1;
+    height: 100%;
+    aspect-ratio: auto;
+  }
+
+  .about-hero-text {
+    grid-column: 7 / 13;
+    grid-row: 1;
+    align-self: end;
+    background: rgba(247,248,242,0.94);
+    border: 1px solid var(--text-primary);
+    border-top: 6px solid var(--accent);
+    padding: var(--space-5);
+    z-index: 2;
+    box-shadow: 20px 20px 0 rgba(23,32,27,0.08);
+  }
+
+  .about-stats {
+    margin-top: var(--space-4);
+  }
+
+  .about-manifesto-wall {
+    padding-block: var(--space-7);
+  }
+
+  .manifesto-wall-container {
+    display: grid;
+    grid-template-columns: 0.34fr 1fr;
+    column-gap: var(--space-6);
+    text-align: left;
+  }
+
+  .manifesto-wall-kicker {
+    writing-mode: vertical-rl;
+    margin: 0;
+  }
+
+  .manifesto-wall-title,
+  .manifesto-wall-sub,
+  .manifesto-wall-desc {
+    grid-column: 2;
+    margin-left: 0;
+  }
+
+  .story-gallery-grid {
+    grid-template-columns: 1.35fr 0.75fr 0.9fr;
+    grid-auto-rows: 300px;
+  }
+
+  .story-gallery-item:first-child {
+    grid-row: span 2;
+  }
+
+  .story-gallery-item:nth-child(2) {
+    grid-column: 2 / 4;
+  }
+
+  .values-grid {
+    grid-template-columns: 0.95fr 1.1fr 0.95fr;
+    align-items: stretch;
+  }
+
+  .value-item:nth-child(2) {
+    transform: translateY(44px);
+  }
+
+  .detail-row {
+    grid-template-columns: 0.9fr 1.1fr;
+    align-items: stretch;
+  }
+
+  .detail-img {
+    aspect-ratio: auto;
+    min-height: 560px;
+  }
+
+  .detail-content {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    padding: var(--space-5);
+  }
+}
+
+@media (max-width: 960px) {
+  .value-item:nth-child(2) {
+    transform: none;
+  }
+}
+
+/* Mobile containment for shifted about page */
+@media (max-width: 960px) {
+  .about-page,
+  .about-hero,
+  .about-manifesto-wall,
+  .about-story-section,
+  .brand-values,
+  .about-detail {
+    max-width: 100vw;
+    overflow-x: hidden;
+  }
+
+  .about-hero::before,
+  .about-manifesto-wall::before {
+    right: -8px;
+    left: auto;
+    transform: translateY(-50%);
+    font-size: clamp(92px, 28vw, 140px);
+  }
+
+  .about-hero-text h1 {
+    font-size: clamp(48px, 15vw, 70px);
+  }
+
+  .detail-row,
+  .story-gallery-grid,
+  .values-grid {
+    max-width: 100%;
+  }
+}
+
+/* Desktop fix：測試現場圖片區整理 */
+@media (min-width: 901px) {
+  .story-gallery-grid {
+    max-width: 980px;
+    margin: 0 auto;
+    display: grid;
+    grid-template-columns: 1.05fr 0.95fr;
+    grid-template-rows: 220px 220px;
+    gap: 12px;
+    background: transparent;
+    border: none;
+  }
+
+  .story-gallery-item {
+    aspect-ratio: auto;
+    border: 1px solid var(--border-line);
+    background: rgba(247,248,242,0.82);
+  }
+
+  .story-gallery-item:first-child {
+    grid-row: 1 / 3;
+  }
+
+  .story-gallery-item img {
+    object-fit: cover;
+    object-position: center;
+    filter: saturate(0.72) contrast(1.04) brightness(0.96);
+  }
+
+  .story-gallery-item:first-child img {
+    object-position: center 45%;
+  }
+
+  .story-gallery-item:nth-child(2) img {
+    object-position: center 38%;
+  }
+
+  .story-gallery-item:nth-child(3) img {
+    object-position: center 50%;
+  }
+}
