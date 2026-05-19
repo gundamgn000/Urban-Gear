@@ -91,19 +91,35 @@
     <div class="product-wrapper">
  
        <!-- Gallery 商品圖 -->
-      <div class="product-gallery">
-        <div class="main-image">
-          <span class="main-image-tag">№ 042 / Outer Shell</span>
-          <img src="https://cdn01.pinkoi.com/product/mP4nsDiV/0/1/640x530.jpg" alt="城市防風外套 主圖" id="mainImg">
-        </div>
-        <div class="thumbnail-list">
-          <img src="https://cdn01.pinkoi.com/product/mP4nsDiV/0/1/640x530.jpg" alt="縮圖 1" class="thumbnail active" data-src="https://cdn01.pinkoi.com/product/mP4nsDiV/0/1/640x530.jpg">
-          <img src="https://cdn02.pinkoi.com/product/LMP7gmms/0/1/640x530.jpg" alt="縮圖 2" class="thumbnail" data-src="https://cdn02.pinkoi.com/product/LMP7gmms/0/1/640x530.jpg">
-          <img src="https://img.alicdn.com/imgextra/i1/2561480090/O1CN01bCIRtm1CXGQsNyrzo_!!2561480090.jpg" alt="縮圖 3" class="thumbnail" data-src="https://img.alicdn.com/imgextra/i1/2561480090/O1CN01bCIRtm1CXGQsNyrzo_!!2561480090.jpg">
-          <img src="https://cdn02.pinkoi.com/product/LMP7gmms/5/500x0.jpg" alt="縮圖 4" class="thumbnail" data-src="https://cdn02.pinkoi.com/product/LMP7gmms/5/500x0.jpg">
-        </div>
-      </div>
+     <div class="product-gallery">
+  
+      <div class="street-vertical-carousel">
+        <button class="street-nav-btn btn-prev" id="thumbPrev" type="button" aria-label="往上滑動">▲</button>
         
+        <div class="street-slider-mask">
+          <div class="street-vertical-track" id="thumbTrack">
+            <img src="https://cdn01.pinkoi.com/product/mP4nsDiV/0/1/640x530.jpg" alt="縮圖 1" class="thumbnail active" data-src="https://cdn01.pinkoi.com/product/mP4nsDiV/0/1/640x530.jpg">
+            <img src="https://cdn02.pinkoi.com/product/LMP7gmms/0/1/640x530.jpg" alt="縮圖 2" class="thumbnail" data-src="https://cdn02.pinkoi.com/product/LMP7gmms/0/1/640x530.jpg">
+            <img src="https://img.alicdn.com/imgextra/i1/2561480090/O1CN01bCIRtm1CXGQsNyrzo_!!2561480090.jpg" alt="縮圖 3" class="thumbnail" data-src="https://img.alicdn.com/imgextra/i1/2561480090/O1CN01bCIRtm1CXGQsNyrzo_!!2561480090.jpg">
+            <img src="https://cdn02.pinkoi.com/product/LMP7gmms/5/500x0.jpg" alt="縮圖 4" class="thumbnail" data-src="https://cdn02.pinkoi.com/product/LMP7gmms/5/500x0.jpg">
+            <img src="https://images.unsplash.com/photo-1556821840-3a63f95609a7?auto=format&fit=crop&w=600&q=80" alt="縮圖 5" class="thumbnail" data-src="https://images.unsplash.com/photo-1556821840-3a63f95609a7?auto=format&fit=crop&w=900&q=80">
+            <img src="https://images.unsplash.com/photo-1521572163474-6864f9cf17ab?auto=format&fit=crop&w=600&q=80" alt="縮圖 6" class="thumbnail" data-src="https://images.unsplash.com/photo-1521572163474-6864f9cf17ab?auto=format&fit=crop&w=900&q=80">
+            <img src="https://images.unsplash.com/photo-1583743814966-8936f5b7be1a?auto=format&fit=crop&w=600&q=80" alt="縮圖 7" class="thumbnail" data-src="https://images.unsplash.com/photo-1583743814966-8936f5b7be1a?auto=format&fit=crop&w=900&q=80">
+            <img src="https://images.unsplash.com/photo-1578587018452-892bacefd3f2?auto=format&fit=crop&w=600&q=80" alt="縮圖 8" class="thumbnail" data-src="https://images.unsplash.com/photo-1578587018452-892bacefd3f2?auto=format&fit=crop&w=900&q=80">
+            <img src="https://images.unsplash.com/photo-1512436991641-6745cdb1723f?auto=format&fit=crop&w=600&q=80" alt="縮圖 9" class="thumbnail" data-src="https://images.unsplash.com/photo-1512436991641-6745cdb1723f?auto=format&fit=crop&w=900&q=80">
+          </div>
+        </div>
+        
+        <button class="street-nav-btn btn-next" id="thumbNext" type="button" aria-label="往下滑動">▼</button>
+      </div>
+
+      <div class="main-image">
+        <span class="main-image-tag">№ 042 / Outer Shell</span>
+        <img src="https://cdn01.pinkoi.com/product/mP4nsDiV/0/1/640x530.jpg" alt="城市防風外套 主圖" id="mainImg">
+      </div>
+      
+    </div>
+            
         
 
       <!-- 商品資訊 -->
@@ -355,31 +371,36 @@
 
 
       // =========================================
-      // 2. 下方縮圖滑軌輪播與主圖連動 (BLACKLINE 4列優化版)
+      // 2. 左側縮圖垂直滑軌輪播與主圖連動 (BLACKLINE 垂直版修正)
       // =========================================
-      const thumbnails = document.querySelectorAll('.thumbnail');
+      const thumbnails = document.querySelectorAll('.street-vertical-track .thumbnail');
       const mainImg = document.getElementById('mainImg');
       const thumbTrack = document.getElementById('thumbTrack');
+      const thumbPrev = document.getElementById('thumbPrev');
+      const thumbNext = document.getElementById('thumbNext');
       
-      let currentThumbIndex = 0; 
-      const thumbsPerView = 4;   // 【關鍵修正】配合設計語言，畫面上固定看見 4 張
+      let currentThumbIndex = 0; // 當前滑軌最上方顯示的縮圖索引
+      const thumbsPerView = 4;   // 畫面上固定看見 4 張
 
       function getThumbMaxIndex() {
         return Math.max(0, thumbnails.length - thumbsPerView);
       }
 
-      // 動態更新滑軌位置 (防跑版動態寬度重算)
+      // 垂直滑動位置核心計算與箭頭狀態
       function updateThumbCarousel() {
         if (!thumbnails.length || !thumbTrack) return;
         
-        const gap = 10; // 對應新 CSS 中的緊密間距 gap: 10px
-        const containerWidth = thumbTrack.parentElement.offsetWidth;
+        // 配合桌機版直向 CSS 的設定值（寬高皆 80px 且間距 10px）
+        const gap = 10;        
+        const thumbHeight = 80; 
         
-        // 精確計算 4 列單個縮圖寬度
-        const width = (containerWidth - (gap * (thumbsPerView - 1))) / thumbsPerView;
+        // 直向滑動核心：沿著 Y 軸做 translateY 位移
+        thumbTrack.style.transform = `translateY(-${currentThumbIndex * (thumbHeight + gap)}px)`;
         
-        // 套用滑軌位移
-        thumbTrack.style.transform = `translateX(-${currentThumbIndex * (width + gap)}px)`;
+        // 控制上下箭頭的 disabled（防呆半透明）狀態
+        const maxThumbIndex = getThumbMaxIndex();
+        if (thumbPrev) thumbPrev.disabled = (currentThumbIndex === 0);
+        if (thumbNext) thumbNext.disabled = (currentThumbIndex >= maxThumbIndex);
       }
 
       // 監聽點擊小縮圖 -> 更換主圖
@@ -393,10 +414,30 @@
         });
       });
 
-      // 初始化與 RWD 安全校正
+      // 監聽下箭頭點擊 -> 軌道往上推，畫面看下一張
+      if (thumbNext) {
+        thumbNext.addEventListener('click', (e) => {
+          e.preventDefault();
+          if (currentThumbIndex < getThumbMaxIndex()) {
+            currentThumbIndex++;
+            updateThumbCarousel();
+          }
+        });
+      }
+
+      // 監聽上箭頭點擊 -> 軌道往下放，畫面看上一張
+      if (thumbPrev) {
+        thumbPrev.addEventListener('click', (e) => {
+          e.preventDefault();
+          if (currentThumbIndex > 0) {
+            currentThumbIndex--;
+            updateThumbCarousel();
+          }
+        });
+      }
+
+      // 初始化滑軌狀態
       updateThumbCarousel();
-      window.addEventListener('load', updateThumbCarousel);
-      window.addEventListener('resize', updateThumbCarousel);
 
 
       // =========================================
@@ -511,7 +552,7 @@
         });
       }
     });
-  </script> 
+  </script>
 </body>
 </html>
 

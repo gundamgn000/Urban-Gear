@@ -1435,3 +1435,117 @@
     object-fit: cover;
   }
 }
+
+/* =========================================
+   BLACKLINE 街頭風 — 專屬直向滑軌與上下箭頭
+   ========================================= */
+
+/* 電腦版：維持左滑軌、右大圖的並排布局 */
+@media (min-width: 901px) {
+  .product-gallery {
+    display: flex !important;
+    flex-direction: row !important;
+    align-items: flex-start !important;
+    gap: 20px !important;
+    width: 100% !important;
+  }
+}
+
+/* 直向滑軌外殼 */
+.street-vertical-carousel {
+  display: flex !important;
+  flex-direction: column !important;
+  align-items: center !important;
+  width: 80px !important; /* 迎合原本電腦版左側縮圖的 80px 寬度 */
+  flex-shrink: 0 !important;
+  gap: 8px !important;
+}
+
+/* 核心遮罩視窗：高度剛好等於 (4張80px正方形 + 3個10px間距) = 350px */
+.street-slider-mask {
+  width: 100% !important;
+  height: 350px !important; 
+  overflow: hidden !important; /* 超過4張的直接切掉 */
+  position: relative !important;
+}
+
+/* 垂直長軌道 */
+.street-vertical-track {
+  display: flex !important;
+  flex-direction: column !important; /* 轉為垂直排列 */
+  gap: 10px !important; /* 縮圖之間的精緻固定間距 */
+  transition: transform 0.35s cubic-bezier(0.25, 0.46, 0.45, 0.94) !important;
+  width: 100% !important;
+}
+
+/* 縮圖基礎設定：強制維持 80x80 正方形且不變形 */
+.street-vertical-track .thumbnail {
+  display: block !important;
+  width: 80px !important;
+  height: 80px !important;
+  flex-shrink: 0 !important;
+  object-fit: cover !important;
+  border-radius: 0px !important; /* 100% 直角 */
+  border: none !important;
+  cursor: pointer !important;
+  opacity: 0.4;
+  filter: grayscale(15%);
+  transition: opacity 0.2s ease, filter 0.2s ease;
+  box-sizing: border-box !important;
+}
+
+.street-vertical-track .thumbnail:hover {
+  opacity: 0.7;
+}
+
+.street-vertical-track .thumbnail.active {
+  opacity: 1 !important;
+  filter: grayscale(0%) !important;
+}
+
+/* 街頭工業風直角導覽按鈕 */
+.street-nav-btn {
+  width: 100% !important;
+  height: 24px !important;
+  background: rgba(0, 0, 0, 0.05) !important;
+  border: 1px solid rgba(0, 0, 0, 0.1) !important;
+  color: var(--text-primary, #1a1a1a) !important;
+  display: flex !important;
+  align-items: center !important;
+  justify-content: center !important;
+  font-size: 11px !important;
+  cursor: pointer !important;
+  flex-shrink: 0 !important;
+  transition: all 0.2s ease !important;
+  padding: 0 !important;
+}
+
+.street-nav-btn:hover:not(:disabled) {
+  background: #1a1a1a !important;
+  color: #ffffff !important;
+  border-color: #1a1a1a !important;
+}
+
+/* 頂頭或到底時的防呆半透明 */
+.street-nav-btn:disabled {
+  opacity: 0.15 !important;
+  cursor: not-allowed !important;
+}
+
+/* 行動裝置 RWD：如果螢幕太小，自動還原成橫向滑動 */
+@media (max-width: 900px) {
+  .product-gallery {
+    flex-direction: column !important;
+  }
+  .street-vertical-carousel {
+    flex-direction: row !important;
+    width: 100% !important;
+    height: auto !important;
+  }
+  .street-slider-mask {
+    height: 80px !important;
+  }
+  .street-vertical-track {
+    flex-direction: row !important;
+  }
+}
