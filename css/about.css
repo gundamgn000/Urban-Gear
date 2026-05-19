@@ -17,7 +17,7 @@
 
 /* 巨大背景年份 */
 .about-hero::before {
-  content: "2024";
+  content: "2024"; /*背景浮水印 可自行修改*/
   position: absolute;
   bottom: -60px;
   right: -40px;
