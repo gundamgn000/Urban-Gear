@@ -1,13 +1,6 @@
-/* =========================================
-   BLACKLINE — About Page
-   Vol.06 / Street · Black · Acid Lime
-   ========================================= */
-
 .about-page { background: var(--bg-page); }
 
-/* =========================================
-   About Hero — 巨大年份 + Manifesto
-   ========================================= */
+
 .about-hero {
   background: var(--bg-page);
   border-bottom: 1px solid var(--border-line);
@@ -61,7 +54,6 @@
 
 .about-hero-image:hover img { filter: grayscale(0) contrast(1.05); }
 
-/* 角落酸萊姆綠 corner */
 .about-hero-image::before,
 .about-hero-image::after {
   content: "";

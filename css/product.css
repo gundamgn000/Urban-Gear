@@ -1049,11 +1049,6 @@
 /* ==========================================================================
    RESPONSIVE & LAYOUT SHIFTS (媒體查詢由大至小嚴格排序)
    ========================================================================== */
-
-/* --------------------------------------------------------------------------
-   【斷點一】大螢幕 PC 與中階平板過渡 (min-width: 961px)
-   整合 Layout Shift V2 欄位排版重疊核心
-   -------------------------------------------------------------------------- */
 @media (min-width: 961px) {
   .product-list-hero {
     padding: var(--space-5) var(--space-5) var(--space-4);
@@ -1395,6 +1390,7 @@
     width: 80px !important;   
     overflow: hidden !important; 
     position: relative;
+    transform: translateX(-48px) !important;
   }
 
   /* 確保軌道垂直直列 */
@@ -1506,18 +1502,18 @@
 
 @media (min-width: 961px) {
   .thumb-prev, .thumb-next {
-    width: 32px !important;    
+    width: 40px !important;    
     height: 80px !important;   
   }
 
   .thumb-prev {
     transform: rotate(90deg) translate(0px, -23px) !important; 
-    margin-bottom: 4px !important;       
+    margin-bottom: 500px !important;       
   }
 
   .thumb-next {
-    transform: rotate(90deg) translate(0px, -23px) !important; 
-    margin-top: 4px !important;          
+    transform: rotate(90deg) translate(0px, 38px) !important; 
+    margin-top: 500px !important;          
   }
 }
 
@@ -1531,3 +1527,182 @@
     margin: 8px auto !important; 
   }
 }
+
+/* ==========================================================================
+   URBAN GEAR Product Patch
+   ========================================================================== */
+
+/* 商品卡只保留分類、標題、價格與原本 View */
+.product-list-grid .list-product-name-zh,
+.product-list-grid .list-product-body > p,
+.product-list-grid .list-product-sizes,
+.recommend-track .list-product-name-zh,
+.recommend-track .list-product-body > p,
+.recommend-track .list-product-sizes {
+  display: none;
+}
+
+/* 桌機圖片區 Sticky */
+@media (min-width: 961px) {
+  .product-wrapper { align-items: start; }
+  .product-gallery {
+    position: sticky;
+    top: calc(var(--header-height) + var(--marquee-height) + 20px);
+    align-self: start;
+  }
+}
+
+/* 主圖完整顯示 */
+.main-image { cursor: zoom-in; }
+.main-image img {
+  object-fit: contain;
+  object-position: center;
+  transform: none;
+}
+.main-image:hover img { transform: none; }
+
+/* 縮圖固定單排三張 */
+.thumbnail-carousel {
+  display: grid;
+  grid-template-columns: 42px minmax(0, 1fr) 42px;
+  align-items: center;
+  gap: 10px;
+}
+.thumb-viewport {
+  width: 100%;
+  height: auto;
+  overflow: hidden;
+}
+.thumb-track {
+  display: flex;
+  flex-direction: row;
+  width: 100%;
+  gap: 12px;
+  transition: transform .28s ease;
+}
+.thumb-track .thumbnail {
+  flex: 0 0 calc((100% - 24px) / 3);
+  width: calc((100% - 24px) / 3);
+  height: auto;
+  aspect-ratio: 1;
+}
+
+/* 推薦商品：桌機三張完整 */
+.recommend-carousel {
+  position: relative;
+  padding: 0 56px;
+}
+.recommend-slider {
+  width: 100%;
+  min-width: 0;
+  overflow: hidden;
+}
+.recommend-track {
+  display: flex;
+  width: 100%;
+  gap: 16px;
+  transition: transform .34s ease;
+}
+.recommend-track .list-product-card {
+  flex: 0 0 calc(33.333333% - 10.666667px);
+  width: calc(33.333333% - 10.666667px);
+  min-width: 0;
+}
+.carousel-btn:disabled {
+  opacity: .3;
+  pointer-events: none;
+}
+
+/* 平板與手機：兩張完整，手勢滑動 */
+@media (max-width: 960px) {
+  .product-gallery { position: static; }
+
+  .recommend-carousel { padding: 0; overflow: hidden; }
+  .recommend-slider {
+    overflow-x: auto;
+    overflow-y: hidden;
+    scroll-snap-type: x mandatory;
+    scrollbar-width: none;
+    -webkit-overflow-scrolling: touch;
+  }
+  .recommend-slider::-webkit-scrollbar { display: none; }
+  .recommend-track {
+    display: grid;
+    grid-auto-flow: column;
+    grid-auto-columns: calc((100% - 14px) / 2);
+    width: auto;
+    gap: 14px;
+    transform: none !important;
+  }
+  .recommend-track .list-product-card {
+    width: auto;
+    min-width: 0;
+    scroll-snap-align: start;
+  }
+  .carousel-btn { display: none; }
+}
+
+/* Lightbox */
+body.lightbox-open { overflow: hidden; }
+
+.product-lightbox {
+  position: fixed;
+  inset: 0;
+  z-index: 200000;
+  display: grid;
+  place-items: center;
+  padding: clamp(14px,3vw,44px);
+  opacity: 0;
+  visibility: hidden;
+  pointer-events: none;
+  transition: opacity .2s ease, visibility .2s ease;
+}
+.product-lightbox.active {
+  opacity: 1;
+  visibility: visible;
+  pointer-events: auto;
+}
+.lightbox-backdrop {
+  position: absolute;
+  inset: 0;
+  width: 100%;
+  height: 100%;
+  border: 0;
+  background: rgba(8,14,24,.94);
+}
+.lightbox-dialog {
+  position: relative;
+  z-index: 1;
+  display: grid;
+  place-items: center;
+  width: min(1180px,calc(100vw - 64px));
+  max-height: calc(100dvh - 48px);
+}
+.lightbox-dialog img {
+  width: auto;
+  max-width: 100%;
+  height: auto;
+  max-height: calc(100dvh - 48px);
+  object-fit: contain;
+}
+.lightbox-close,
+.lightbox-nav {
+  position: absolute;
+  z-index: 2;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  border: 1px solid rgba(255,255,255,.38);
+  background: rgba(20,38,62,.82);
+  color: #F8FAFC;
+}
+.lightbox-close { top: 0; right: 0; width: 42px; height: 42px; font-size: 28px; }
+.lightbox-nav { top: 50%; width: 44px; height: 44px; transform: translateY(-50%); font-size: 30px; }
+.lightbox-prev { left: 0; }
+.lightbox-next { right: 0; }
+
+@media (max-width: 640px) {
+  .lightbox-dialog { width: calc(100vw - 24px); max-height: calc(100dvh - 24px); }
+  .lightbox-dialog img { max-height: calc(100dvh - 48px); }
+}
+

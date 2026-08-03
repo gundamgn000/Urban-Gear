@@ -1,7 +1,4 @@
-/* =========================================
-   BLACKLINE — Base CSS
-   Vol.07 / Urban Field Manual · Concrete · Signal Orange
-   ========================================= */
+
 
 @import url('https://fonts.googleapis.com/css2?family=Barlow+Condensed:wght@600;700;800&family=IBM+Plex+Mono:wght@400;500;600;700&family=Noto+Sans+TC:wght@400;500;700;900&display=swap');
 
@@ -904,3 +901,119 @@ h4 {
     padding-inline: var(--space-4);
   }
 }
+
+/* ==========================================================================
+   URBAN GEAR Alt Theme — Concrete Blue
+   冷灰混凝土 × 深海軍藍 × 訊號鈷藍
+   ========================================================================== */
+
+:root[data-theme="concrete"] {
+  --color-void:        #D9DEE5;
+  --color-black:       #EEF1F5;
+  --color-graphite:    #E2E7ED;
+  --color-card:        #F8FAFC;
+  --color-elevated:    #FFFFFF;
+  --color-divider:     #B7C0CC;
+  --color-divider-soft: rgba(20,38,62,0.08);
+
+  --color-white:       #14263E;
+  --color-mute:        #5D6C7E;
+  --color-dim:         #8793A2;
+  --color-faint:       rgba(20,38,62,0.44);
+
+  --color-acid:        #246BCE;
+  --color-acid-deep:   #184E9C;
+  --color-acid-faint:  rgba(36,107,206,0.12);
+
+  --bg-page:           #EEF1F5;
+  --bg-surface:        #E2E7ED;
+  --bg-card:           #F8FAFC;
+  --bg-inverse:        #14263E;
+  --text-primary:      #14263E;
+  --text-secondary:    #5D6C7E;
+  --text-tertiary:     #8793A2;
+  --text-inverse:      #F8FAFC;
+  --accent:            #246BCE;
+  --accent-hover:      #184E9C;
+  --border-line:       #B7C0CC;
+  --border-acid:       rgba(36,107,206,0.38);
+}
+
+:root[data-theme="concrete"] body {
+  background:
+    linear-gradient(rgba(20,38,62,0.035) 1px, transparent 1px),
+    linear-gradient(90deg, rgba(20,38,62,0.035) 1px, transparent 1px),
+    var(--bg-page);
+  background-size: 24px 24px, 24px 24px, auto;
+}
+
+:root[data-theme="concrete"] .top-marquee {
+  background: #14263E;
+  color: #F8FAFC;
+}
+
+:root[data-theme="concrete"] .header {
+  background: rgba(248,250,252,0.88);
+  border-bottom-color: rgba(20,38,62,0.16);
+  box-shadow: 0 14px 36px rgba(20,38,62,0.08);
+}
+
+:root[data-theme="concrete"] .nav-menu {
+  border-left-color: rgba(20,38,62,0.16);
+}
+
+:root[data-theme="concrete"] .nav-menu > a,
+:root[data-theme="concrete"] .nav-dropdown-trigger {
+  border-right-color: rgba(20,38,62,0.16);
+}
+
+:root[data-theme="concrete"] .nav-dropdown-menu,
+:root[data-theme="concrete"] .mobile-drawer {
+  background: #F8FAFC;
+}
+
+:root[data-theme="concrete"] .footer-main {
+  background: #14263E;
+}
+
+.theme-switcher {
+  position: fixed;
+  right: 18px;
+  bottom: 18px;
+  z-index: 100000;
+  display: flex;
+  gap: 4px;
+  padding: 4px;
+  border: 1px solid var(--border-line);
+  border-radius: 2px;
+  background: rgba(247,248,242,.94);
+  box-shadow: 0 12px 30px rgba(23,32,27,.14);
+  backdrop-filter: blur(12px);
+}
+
+:root[data-theme="concrete"] .theme-switcher {
+  background: rgba(248,250,252,.94);
+}
+
+.theme-switcher button {
+  min-width: 52px;
+  padding: 8px 11px;
+  border: 0;
+  background: transparent;
+  color: var(--text-secondary);
+  font-family: var(--font-mono);
+  font-size: 10px;
+  font-weight: 700;
+  letter-spacing: .10em;
+}
+
+.theme-switcher button.is-active {
+  background: var(--accent);
+  color: var(--text-inverse);
+}
+
+@media (max-width: 768px) {
+  .theme-switcher { right: 12px; bottom: 12px; }
+  .theme-switcher button { min-width: 46px; padding: 7px 9px; font-size: 9px; }
+}
+

@@ -92,7 +92,7 @@
 
       <!-- Gallery 商品圖 -->
       <div class="product-gallery">
-        <div class="main-image">
+        <div class="main-image" id="mainImageButton" role="button" tabindex="0" aria-label="放大商品圖片">
           <span class="main-image-tag">№ 042 / Drop 04</span>
           <img src="https://cdn01.pinkoi.com/product/mP4nsDiV/0/1/640x530.jpg" alt="重磅落肩短 T 主圖" id="mainImg">
         </div>
@@ -201,7 +201,6 @@
             <div class="list-product-body">
               <span class="list-product-tag">Outerwear · 450gsm</span>
               <h3>Tonal Logo Hoodie</h3>
-              <p class="list-product-name-zh">同色刺繡連帽外套</p>
               <div class="list-product-footer">
                 <span class="list-product-price">NT$ 2,880</span>
                 <span class="list-product-link">View</span>
@@ -218,7 +217,6 @@
             <div class="list-product-body">
               <span class="list-product-tag">Bottoms · Ripstop</span>
               <h3>Utility Cargo Pants</h3>
-              <p class="list-product-name-zh">機能工裝長褲</p>
               <div class="list-product-footer">
                 <span class="list-product-price">NT$ 2,480</span>
                 <span class="list-product-link">View</span>
@@ -234,7 +232,6 @@
             <div class="list-product-body">
               <span class="list-product-tag">Tees · 240gsm</span>
               <h3>Long Sleeve Crew</h3>
-              <p class="list-product-name-zh">長袖落肩 T</p>
               <div class="list-product-footer">
                 <span class="list-product-price">NT$ 1,580</span>
                 <span class="list-product-link">View</span>
@@ -250,7 +247,6 @@
             <div class="list-product-body">
               <span class="list-product-tag">Accessories</span>
               <h3>Ribbed Knit Beanie</h3>
-              <p class="list-product-name-zh">羅紋針織毛帽</p>
               <div class="list-product-footer">
                 <span class="list-product-price">NT$ 580</span>
                 <span class="list-product-link">View</span>
@@ -266,7 +262,6 @@
             <div class="list-product-body">
               <span class="list-product-tag">Accessories · Bag</span>
               <h3>Utility Backpack</h3>
-              <p class="list-product-name-zh">機能後背包</p>
               <div class="list-product-footer">
                 <span class="list-product-price">NT$ 2,180</span>
                 <span class="list-product-link">View</span>
@@ -281,6 +276,17 @@
   </section>
 
   <!-- FOOTER -->
+
+  <div class="product-lightbox" id="productLightbox" aria-hidden="true">
+    <button class="lightbox-backdrop" type="button" aria-label="關閉放大圖片"></button>
+    <div class="lightbox-dialog" role="dialog" aria-modal="true" aria-label="商品圖片預覽">
+      <button class="lightbox-close" id="lightboxClose" type="button" aria-label="關閉">×</button>
+      <button class="lightbox-nav lightbox-prev" id="lightboxPrev" type="button" aria-label="上一張">‹</button>
+      <img id="lightboxImage" src="" alt="">
+      <button class="lightbox-nav lightbox-next" id="lightboxNext" type="button" aria-label="下一張">›</button>
+    </div>
+  </div>
+
   <footer id="footer" class="footer-main">
     <div class="footer-top-container">
       <div class="footer-brand">
@@ -362,34 +368,52 @@
     });
   }
 
-  // ── 縮圖點擊切換主圖 ──
   const thumbnails = document.querySelectorAll('.thumbnail');
   const mainImg    = document.getElementById('mainImg');
 
-  thumbnails.forEach(thumb => {
+  thumbnails.forEach((thumb, clickedIndex) => {
     thumb.addEventListener('click', () => {
       if (mainImg && thumb.dataset.src) {
         mainImg.src = thumb.dataset.src;
       }
+
       thumbnails.forEach(t => t.classList.remove('active'));
       thumb.classList.add('active');
+
+      /* 桌機版：點到目前最後一張時，自動露出下一張縮圖 */
+      if (!isThumbMobileLayout()) {
+        const visibleCount = getThumbVisibleCount();
+        const lastVisibleIndex =
+          thumbCarouselIndex + visibleCount - 1;
+
+        if (
+          clickedIndex >= lastVisibleIndex &&
+          thumbCarouselIndex < getThumbMaxIndex()
+        ) {
+          thumbCarouselIndex += 1;
+          updateThumbCarousel();
+        }
+
+        /* 往回點到目前可視範圍之外，也自動往上 */
+        if (clickedIndex < thumbCarouselIndex) {
+          thumbCarouselIndex = clickedIndex;
+          updateThumbCarousel();
+        }
+      }
     });
   });
 
 
-  // ── 預覽圖滑軌 RWD：電腦版上下鍵垂直、平板/手機左右鍵水平 ──
   const thumbTrack = document.querySelector('.thumb-track');
   const thumbViewport = document.querySelector('.thumb-viewport');
   const thumbPrevBtn = document.querySelector('.thumb-prev');
   const thumbNextBtn = document.querySelector('.thumb-next');
   let thumbCarouselIndex = 0;
 
-  // 判定是否為手機/平板排版 (<= 960px)
   function isThumbMobileLayout() {
     return window.innerWidth <= 960;
   }
 
-  // 精確計算每次滾動一格的間距 (圖片寬高 + CSS gap)
   function getThumbStep() {
     const first = thumbTrack?.querySelector('.thumbnail');
     if (!first) return 0;
@@ -397,7 +421,7 @@
     return (isThumbMobileLayout() ? first.offsetWidth : first.offsetHeight) + gap;
   }
 
-  // 計算目前遮罩視窗內一次可以完整容納幾張小圖
+  
   function getThumbVisibleCount() {
     const first = thumbTrack?.querySelector('.thumbnail');
     if (!first || !thumbViewport) return 1;
@@ -406,30 +430,24 @@
     return Math.max(1, Math.floor(viewportSize / size));
   }
 
-  // 計算滑軌最大可滾動的索引值上限
   function getThumbMaxIndex() {
     return Math.max(0, thumbnails.length - getThumbVisibleCount());
   }
 
-  // 核心渲染：控制滑軌平移與按鈕狀態
   function updateThumbCarousel() {
     if (!thumbTrack) return;
 
     const max = getThumbMaxIndex();
-    // 確保安全邊界，不超出範圍
     thumbCarouselIndex = Math.max(0, Math.min(thumbCarouselIndex, max));
 
     const move = thumbCarouselIndex * getThumbStep();
     
     if (isThumbMobileLayout()) {
-      // 平板與手機版：強制 Y 軸歸零，執行 X 軸水平平移
       thumbTrack.style.transform = `translateX(-${move}px)`;
     } else {
-      // 電腦版：強制 X 軸歸零，執行 Y 軸垂直上下平移
       thumbTrack.style.transform = `translateY(-${move}px)`;
     }
 
-    // 更新導覽按鈕的停用狀態
     if (thumbPrevBtn) thumbPrevBtn.disabled = (thumbCarouselIndex === 0);
     if (thumbNextBtn) thumbNextBtn.disabled = (thumbCarouselIndex >= max);
   }
@@ -449,23 +467,19 @@
       }
     });
 
-    // 監聽視窗尺寸改變：重置軌道與清除跨軸向殘留樣式
     window.addEventListener('resize', () => {
       if (isThumbMobileLayout()) {
-        thumbTrack.style.transform = 'translateY(0)'; // 清除電腦版殘留的 Y 軸位移
-      } else {
-        thumbTrack.style.transform = 'translateX(0)'; // 清除手機版殘留的 X 軸位移
+        thumbTrack.style.transform = 'translateY(0)';
+        thumbTrack.style.transform = 'translateX(0)';
       }
       updateThumbCarousel();
     });
 
     window.addEventListener('load', updateThumbCarousel);
-    // 立即初始化第一次狀態
     updateThumbCarousel();
   }
 
 
-  // ── Size 切換 ──
   const variantBtns = document.querySelectorAll('.variant-btn');
   variantBtns.forEach(btn => {
     btn.addEventListener('click', () => {
@@ -475,7 +489,6 @@
     });
   });
 
-  // ── 數量選擇（維持 02 兩位數格式街頭風）──
   let qty = 1;
   const qtyNum = document.getElementById('qtyNum');
   const pad = n => String(n).padStart(2, '0');
@@ -494,7 +507,6 @@
     });
   }
 
-  // ── 願望清單按鈕（toggle）──
   const wishBtn = document.querySelector('.btn-wishlist');
   if (wishBtn) {
     wishBtn.addEventListener('click', () => {
@@ -502,7 +514,6 @@
     });
   }
 
-  // ── 推薦輪播（RWD 感知版） ──
   const slider  = document.getElementById('recommendSlider');
   if (slider) {
     const track   = slider.querySelector('.recommend-track');
@@ -544,5 +555,198 @@
     });
   }
 </script>
+
+  <script>
+  (() => {
+    const thumbs = Array.from(
+      document.querySelectorAll('.thumb-track .thumbnail')
+    );
+
+    const mainImg = document.getElementById('mainImg');
+    const mainButton = document.getElementById('mainImageButton');
+    const track = document.querySelector('.thumb-track');
+    const prev = document.querySelector('.thumb-prev');
+    const next = document.querySelector('.thumb-next');
+
+    let imageIndex = Math.max(
+      0,
+      thumbs.findIndex(thumb => thumb.classList.contains('active'))
+    );
+
+    let offset = 0;
+
+    function isDesktopGallery() {
+      return window.matchMedia('(min-width: 961px)').matches;
+    }
+
+    function perView() {
+      return isDesktopGallery() ? 4 : 3;
+    }
+
+    function maxOffset() {
+      return Math.max(0, thumbs.length - perView());
+    }
+
+    function updateTrack() {
+      if (!track || !thumbs.length) return;
+
+      const gap = parseFloat(getComputedStyle(track).gap) || 8;
+      const rect = thumbs[0].getBoundingClientRect();
+
+      offset = Math.max(0, Math.min(offset, maxOffset()));
+
+      if (isDesktopGallery()) {
+        track.style.transform =
+          `translateY(-${offset * (rect.height + gap)}px)`;
+      } else {
+        track.style.transform =
+          `translateX(-${offset * (rect.width + gap)}px)`;
+      }
+
+      if (prev) {
+        prev.disabled = offset === 0;
+      }
+
+      if (next) {
+        next.disabled = offset >= maxOffset();
+      }
+    }
+
+    function show(index) {
+      if (!thumbs.length || !mainImg) return;
+
+      imageIndex = (index + thumbs.length) % thumbs.length;
+
+      const thumb = thumbs[imageIndex];
+
+      mainImg.src = thumb.dataset.src || thumb.src;
+      mainImg.alt = thumb.alt || '';
+
+      thumbs.forEach((item, itemIndex) => {
+        item.classList.toggle('active', itemIndex === imageIndex);
+      });
+
+      const firstVisibleIndex = offset;
+      const lastVisibleIndex = offset + perView() - 1;
+
+      /*
+        點目前可見的最後一張：
+        預覽列往下一格／往右一格，露出下一張
+      */
+      if (
+        imageIndex === lastVisibleIndex &&
+        offset < maxOffset()
+      ) {
+        offset += 1;
+      }
+
+      /*
+        點目前可見的第一張：
+        預覽列往上一格／往左一格，帶回上一張
+      */
+      else if (
+        imageIndex === firstVisibleIndex &&
+        offset > 0
+      ) {
+        offset -= 1;
+      }
+
+      updateTrack();
+
+      if (lightbox?.classList.contains('active')) {
+        lightboxImg.src = mainImg.src;
+        lightboxImg.alt = mainImg.alt;
+      }
+    }
+
+    prev?.addEventListener('click', event => {
+      event.stopImmediatePropagation();
+      offset -= 1;
+      updateTrack();
+    });
+
+    next?.addEventListener('click', event => {
+      event.stopImmediatePropagation();
+      offset += 1;
+      updateTrack();
+    });
+
+    thumbs.forEach((thumb, index) => {
+      thumb.addEventListener('click', () => {
+        show(index);
+      });
+    });
+
+    window.addEventListener('resize', () => {
+      offset = Math.min(offset, maxOffset());
+      updateTrack();
+    });
+
+    window.addEventListener('load', updateTrack);
+
+    const lightbox = document.getElementById('productLightbox');
+    const lightboxImg = document.getElementById('lightboxImage');
+    const close = document.getElementById('lightboxClose');
+    const lbPrev = document.getElementById('lightboxPrev');
+    const lbNext = document.getElementById('lightboxNext');
+    const backdrop = lightbox?.querySelector('.lightbox-backdrop');
+
+    function open() {
+      if (!lightbox || !mainImg || !lightboxImg) return;
+
+      lightboxImg.src = mainImg.src;
+      lightboxImg.alt = mainImg.alt;
+
+      lightbox.classList.add('active');
+      lightbox.setAttribute('aria-hidden', 'false');
+      document.body.classList.add('lightbox-open');
+    }
+
+    function shut() {
+      lightbox?.classList.remove('active');
+      lightbox?.setAttribute('aria-hidden', 'true');
+      document.body.classList.remove('lightbox-open');
+    }
+
+    mainButton?.addEventListener('click', open);
+
+    mainButton?.addEventListener('keydown', event => {
+      if (event.key === 'Enter' || event.key === ' ') {
+        event.preventDefault();
+        open();
+      }
+    });
+
+    close?.addEventListener('click', shut);
+    backdrop?.addEventListener('click', shut);
+
+    lbPrev?.addEventListener('click', () => {
+      show(imageIndex - 1);
+    });
+
+    lbNext?.addEventListener('click', () => {
+      show(imageIndex + 1);
+    });
+
+    document.addEventListener('keydown', event => {
+      if (!lightbox?.classList.contains('active')) return;
+
+      if (event.key === 'Escape') {
+        shut();
+      }
+
+      if (event.key === 'ArrowLeft') {
+        show(imageIndex - 1);
+      }
+
+      if (event.key === 'ArrowRight') {
+        show(imageIndex + 1);
+      }
+    });
+
+    updateTrack();
+  })();
+  </script>
+  <script src="../assets/js/theme-switcher.js"></script>
 </body>
 </html>
