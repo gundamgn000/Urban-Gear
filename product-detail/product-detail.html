@@ -166,7 +166,7 @@
         <!-- 加入購物車 -->
         <div class="product-actions">
           <button class="add-to-cart-btn" type="button">
-            加入購物車 / Add To Bag →
+            加入購物車 / Add To Bag 
           </button>
           <button class="btn-wishlist" type="button" aria-label="收藏">♥</button>
         </div>
@@ -368,118 +368,6 @@
     });
   }
 
-  const thumbnails = document.querySelectorAll('.thumbnail');
-  const mainImg    = document.getElementById('mainImg');
-
-  thumbnails.forEach((thumb, clickedIndex) => {
-    thumb.addEventListener('click', () => {
-      if (mainImg && thumb.dataset.src) {
-        mainImg.src = thumb.dataset.src;
-      }
-
-      thumbnails.forEach(t => t.classList.remove('active'));
-      thumb.classList.add('active');
-
-      /* 桌機版：點到目前最後一張時，自動露出下一張縮圖 */
-      if (!isThumbMobileLayout()) {
-        const visibleCount = getThumbVisibleCount();
-        const lastVisibleIndex =
-          thumbCarouselIndex + visibleCount - 1;
-
-        if (
-          clickedIndex >= lastVisibleIndex &&
-          thumbCarouselIndex < getThumbMaxIndex()
-        ) {
-          thumbCarouselIndex += 1;
-          updateThumbCarousel();
-        }
-
-        /* 往回點到目前可視範圍之外，也自動往上 */
-        if (clickedIndex < thumbCarouselIndex) {
-          thumbCarouselIndex = clickedIndex;
-          updateThumbCarousel();
-        }
-      }
-    });
-  });
-
-
-  const thumbTrack = document.querySelector('.thumb-track');
-  const thumbViewport = document.querySelector('.thumb-viewport');
-  const thumbPrevBtn = document.querySelector('.thumb-prev');
-  const thumbNextBtn = document.querySelector('.thumb-next');
-  let thumbCarouselIndex = 0;
-
-  function isThumbMobileLayout() {
-    return window.innerWidth <= 960;
-  }
-
-  function getThumbStep() {
-    const first = thumbTrack?.querySelector('.thumbnail');
-    if (!first) return 0;
-    const gap = parseFloat(getComputedStyle(thumbTrack).gap) || 0;
-    return (isThumbMobileLayout() ? first.offsetWidth : first.offsetHeight) + gap;
-  }
-
-  
-  function getThumbVisibleCount() {
-    const first = thumbTrack?.querySelector('.thumbnail');
-    if (!first || !thumbViewport) return 1;
-    const size = isThumbMobileLayout() ? first.offsetWidth : first.offsetHeight;
-    const viewportSize = isThumbMobileLayout() ? thumbViewport.clientWidth : thumbViewport.clientHeight;
-    return Math.max(1, Math.floor(viewportSize / size));
-  }
-
-  function getThumbMaxIndex() {
-    return Math.max(0, thumbnails.length - getThumbVisibleCount());
-  }
-
-  function updateThumbCarousel() {
-    if (!thumbTrack) return;
-
-    const max = getThumbMaxIndex();
-    thumbCarouselIndex = Math.max(0, Math.min(thumbCarouselIndex, max));
-
-    const move = thumbCarouselIndex * getThumbStep();
-    
-    if (isThumbMobileLayout()) {
-      thumbTrack.style.transform = `translateX(-${move}px)`;
-    } else {
-      thumbTrack.style.transform = `translateY(-${move}px)`;
-    }
-
-    if (thumbPrevBtn) thumbPrevBtn.disabled = (thumbCarouselIndex === 0);
-    if (thumbNextBtn) thumbNextBtn.disabled = (thumbCarouselIndex >= max);
-  }
-
-  if (thumbPrevBtn && thumbNextBtn && thumbTrack && thumbViewport) {
-    thumbPrevBtn.addEventListener('click', () => {
-      if (thumbCarouselIndex > 0) {
-        thumbCarouselIndex -= 1;
-        updateThumbCarousel();
-      }
-    });
-
-    thumbNextBtn.addEventListener('click', () => {
-      if (thumbCarouselIndex < getThumbMaxIndex()) {
-        thumbCarouselIndex += 1;
-        updateThumbCarousel();
-      }
-    });
-
-    window.addEventListener('resize', () => {
-      if (isThumbMobileLayout()) {
-        thumbTrack.style.transform = 'translateY(0)';
-        thumbTrack.style.transform = 'translateX(0)';
-      }
-      updateThumbCarousel();
-    });
-
-    window.addEventListener('load', updateThumbCarousel);
-    updateThumbCarousel();
-  }
-
-
   const variantBtns = document.querySelectorAll('.variant-btn');
   variantBtns.forEach(btn => {
     btn.addEventListener('click', () => {
@@ -558,131 +446,12 @@
 
   <script>
   (() => {
-    const thumbs = Array.from(
-      document.querySelectorAll('.thumb-track .thumbnail')
-    );
-
+    const thumbs = Array.from(document.querySelectorAll('.thumb-track .thumbnail'));
     const mainImg = document.getElementById('mainImg');
     const mainButton = document.getElementById('mainImageButton');
     const track = document.querySelector('.thumb-track');
     const prev = document.querySelector('.thumb-prev');
     const next = document.querySelector('.thumb-next');
-
-    let imageIndex = Math.max(
-      0,
-      thumbs.findIndex(thumb => thumb.classList.contains('active'))
-    );
-
-    let offset = 0;
-
-    function isDesktopGallery() {
-      return window.matchMedia('(min-width: 961px)').matches;
-    }
-
-    function perView() {
-      return isDesktopGallery() ? 4 : 3;
-    }
-
-    function maxOffset() {
-      return Math.max(0, thumbs.length - perView());
-    }
-
-    function updateTrack() {
-      if (!track || !thumbs.length) return;
-
-      const gap = parseFloat(getComputedStyle(track).gap) || 8;
-      const rect = thumbs[0].getBoundingClientRect();
-
-      offset = Math.max(0, Math.min(offset, maxOffset()));
-
-      if (isDesktopGallery()) {
-        track.style.transform =
-          `translateY(-${offset * (rect.height + gap)}px)`;
-      } else {
-        track.style.transform =
-          `translateX(-${offset * (rect.width + gap)}px)`;
-      }
-
-      if (prev) {
-        prev.disabled = offset === 0;
-      }
-
-      if (next) {
-        next.disabled = offset >= maxOffset();
-      }
-    }
-
-    function show(index) {
-      if (!thumbs.length || !mainImg) return;
-
-      imageIndex = (index + thumbs.length) % thumbs.length;
-
-      const thumb = thumbs[imageIndex];
-
-      mainImg.src = thumb.dataset.src || thumb.src;
-      mainImg.alt = thumb.alt || '';
-
-      thumbs.forEach((item, itemIndex) => {
-        item.classList.toggle('active', itemIndex === imageIndex);
-      });
-
-      const firstVisibleIndex = offset;
-      const lastVisibleIndex = offset + perView() - 1;
-
-      /*
-        點目前可見的最後一張：
-        預覽列往下一格／往右一格，露出下一張
-      */
-      if (
-        imageIndex === lastVisibleIndex &&
-        offset < maxOffset()
-      ) {
-        offset += 1;
-      }
-
-      /*
-        點目前可見的第一張：
-        預覽列往上一格／往左一格，帶回上一張
-      */
-      else if (
-        imageIndex === firstVisibleIndex &&
-        offset > 0
-      ) {
-        offset -= 1;
-      }
-
-      updateTrack();
-
-      if (lightbox?.classList.contains('active')) {
-        lightboxImg.src = mainImg.src;
-        lightboxImg.alt = mainImg.alt;
-      }
-    }
-
-    prev?.addEventListener('click', event => {
-      event.stopImmediatePropagation();
-      offset -= 1;
-      updateTrack();
-    });
-
-    next?.addEventListener('click', event => {
-      event.stopImmediatePropagation();
-      offset += 1;
-      updateTrack();
-    });
-
-    thumbs.forEach((thumb, index) => {
-      thumb.addEventListener('click', () => {
-        show(index);
-      });
-    });
-
-    window.addEventListener('resize', () => {
-      offset = Math.min(offset, maxOffset());
-      updateTrack();
-    });
-
-    window.addEventListener('load', updateTrack);
 
     const lightbox = document.getElementById('productLightbox');
     const lightboxImg = document.getElementById('lightboxImage');
@@ -691,60 +460,119 @@
     const lbNext = document.getElementById('lightboxNext');
     const backdrop = lightbox?.querySelector('.lightbox-backdrop');
 
-    function open() {
-      if (!lightbox || !mainImg || !lightboxImg) return;
+    let imageIndex = Math.max(0, thumbs.findIndex(t => t.classList.contains('active')));
+    let offset = 0;
 
+    const isDesktop = () => window.matchMedia('(min-width: 961px)').matches;
+    const perView = () => isDesktop() ? 4 : 3;
+    const maxOffset = () => Math.max(0, thumbs.length - perView());
+
+    function updateTrack() {
+      if (!track || !thumbs.length) return;
+
+      offset = Math.max(0, Math.min(offset, maxOffset()));
+
+      const gap = parseFloat(getComputedStyle(track).gap) || 8;
+      const rect = thumbs[0].getBoundingClientRect();
+      const step = (isDesktop() ? rect.height : rect.width) + gap;
+
+      track.style.transform = isDesktop()
+        ? `translateY(-${offset * step}px)`
+        : `translateX(-${offset * step}px)`;
+
+      if (prev) prev.disabled = imageIndex <= 0;
+      if (next) next.disabled = imageIndex >= thumbs.length - 1;
+    }
+
+    function syncOffsetToImage() {
+      const visible = perView();
+      const centerSlot = Math.floor((visible - 1) / 2);
+
+      offset = Math.max(
+        0,
+        Math.min(imageIndex - centerSlot, maxOffset())
+      );
+    }
+
+    function show(index) {
+      if (!thumbs.length || !mainImg) return;
+
+      imageIndex = Math.max(0, Math.min(index, thumbs.length - 1));
+      const active = thumbs[imageIndex];
+
+      mainImg.src = active.dataset.src || active.src;
+      mainImg.alt = active.alt || '';
+
+      thumbs.forEach((thumb, i) => {
+        thumb.classList.toggle('active', i === imageIndex);
+      });
+
+      syncOffsetToImage();
+      updateTrack();
+
+      if (lightbox?.classList.contains('active') && lightboxImg) {
+        lightboxImg.src = mainImg.src;
+        lightboxImg.alt = mainImg.alt;
+      }
+    }
+
+    thumbs.forEach((thumb, index) => {
+      thumb.addEventListener('click', () => show(index));
+    });
+
+    prev?.addEventListener('click', event => {
+      event.preventDefault();
+      show(imageIndex - 1);
+    });
+
+    next?.addEventListener('click', event => {
+      event.preventDefault();
+      show(imageIndex + 1);
+    });
+
+    function openLightbox() {
+      if (!lightbox || !mainImg || !lightboxImg) return;
       lightboxImg.src = mainImg.src;
       lightboxImg.alt = mainImg.alt;
-
       lightbox.classList.add('active');
       lightbox.setAttribute('aria-hidden', 'false');
       document.body.classList.add('lightbox-open');
     }
 
-    function shut() {
+    function closeLightbox() {
       lightbox?.classList.remove('active');
       lightbox?.setAttribute('aria-hidden', 'true');
       document.body.classList.remove('lightbox-open');
     }
 
-    mainButton?.addEventListener('click', open);
-
+    mainButton?.addEventListener('click', openLightbox);
     mainButton?.addEventListener('keydown', event => {
       if (event.key === 'Enter' || event.key === ' ') {
         event.preventDefault();
-        open();
+        openLightbox();
       }
     });
 
-    close?.addEventListener('click', shut);
-    backdrop?.addEventListener('click', shut);
-
-    lbPrev?.addEventListener('click', () => {
-      show(imageIndex - 1);
-    });
-
-    lbNext?.addEventListener('click', () => {
-      show(imageIndex + 1);
-    });
+    close?.addEventListener('click', closeLightbox);
+    backdrop?.addEventListener('click', closeLightbox);
+    lbPrev?.addEventListener('click', () => show(imageIndex - 1));
+    lbNext?.addEventListener('click', () => show(imageIndex + 1));
 
     document.addEventListener('keydown', event => {
       if (!lightbox?.classList.contains('active')) return;
-
-      if (event.key === 'Escape') {
-        shut();
-      }
-
-      if (event.key === 'ArrowLeft') {
-        show(imageIndex - 1);
-      }
-
-      if (event.key === 'ArrowRight') {
-        show(imageIndex + 1);
-      }
+      if (event.key === 'Escape') closeLightbox();
+      if (event.key === 'ArrowLeft') show(imageIndex - 1);
+      if (event.key === 'ArrowRight') show(imageIndex + 1);
     });
 
-    updateTrack();
+    window.addEventListener('resize', () => {
+      syncOffsetToImage();
+      updateTrack();
+    });
+
+    window.addEventListener('load', updateTrack);
+
+    show(imageIndex);
   })();
   </script>
   <script src="../assets/js/theme-switcher.js"></script>

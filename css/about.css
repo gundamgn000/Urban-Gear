@@ -967,3 +967,65 @@
     object-position: center 50%;
   }
 }
+
+
+
+/* ==========================================================================
+   URBAN GEAR — About Mobile Stats Repair
+   ========================================================================== */
+@media (max-width: 960px) {
+  .about-hero-container,
+  .about-hero-text,
+  .about-stats {
+    width: 100%;
+    max-width: 100%;
+    min-width: 0;
+    margin-left: 0;
+    margin-right: 0;
+    transform: none !important;
+  }
+
+  .about-hero-text {
+    overflow: visible;
+  }
+
+  .about-stats {
+    box-sizing: border-box;
+    overflow: hidden;
+  }
+
+  .stat-item {
+    min-width: 0;
+    box-sizing: border-box;
+  }
+
+  .stat-num,
+  .stat-label {
+    max-width: 100%;
+    overflow-wrap: anywhere;
+  }
+}
+
+@media (max-width: 640px) {
+  .about-hero-container {
+    padding-left: 16px;
+    padding-right: 16px;
+  }
+
+  .about-stats {
+    grid-template-columns: 1fr !important;
+  }
+
+  .stat-item,
+  .stat-item:not(:first-child) {
+    width: 100%;
+    padding: 16px !important;
+    border-right: 0 !important;
+    border-left: 0 !important;
+    border-bottom: 1px solid var(--border-line);
+  }
+
+  .stat-item:last-child {
+    border-bottom: 0;
+  }
+}
