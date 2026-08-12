@@ -1936,47 +1936,420 @@ body.lightbox-open { overflow: hidden; }
 }
 
 /* ==========================================================================
-   2026-08-12 Tablet Header Fix — prevent duplicate navigation
-   769–1100px 統一使用 Mobile Drawer，Desktop Nav 隱藏
+   2026-08-12 Client Fix — Product List Card Layout
+   商品列表維持 Urban Gear 工業風，但移除舊 Desktop 左右分欄造成的擁擠
    ========================================================================== */
-@media (min-width: 769px) and (max-width: 1100px) {
-  .header .nav-menu,
-  .header .nav-icons {
+.product-list-grid .list-product-card {
+  display: flex !important;
+  flex-direction: column !important;
+  min-width: 0;
+  min-height: 0 !important;
+  gap: 0 !important;
+  overflow: hidden;
+}
+
+.product-list-grid .list-product-image {
+  width: 100% !important;
+  height: auto !important;
+  min-height: 0 !important;
+  aspect-ratio: 4 / 5 !important;
+  margin: 0 0 var(--space-3) !important;
+  flex: none;
+}
+
+.product-list-grid .list-product-body {
+  width: 100%;
+  min-width: 0;
+  padding: 0 !important;
+  display: flex;
+  flex-direction: column;
+  flex: 1;
+}
+
+.product-list-grid .list-product-tag {
+  display: block;
+  margin-bottom: 6px;
+  line-height: 1.45;
+}
+
+.product-list-grid .list-product-body h3 {
+  font-size: 18px !important;
+  line-height: 1.15 !important;
+  margin: 0 0 10px !important;
+  max-width: 100%;
+  overflow-wrap: anywhere;
+}
+
+.product-list-grid .list-product-footer {
+  margin-top: auto;
+  width: 100%;
+  gap: 12px;
+}
+
+/* Tablet：維持兩欄完整卡片 */
+@media (max-width: 960px) and (min-width: 641px) {
+  .product-list-grid .list-product-body h3 {
+    font-size: 17px !important;
+  }
+}
+
+/* Mobile：沿用目前的一欄策略，避免再被舊規則覆蓋 */
+@media (max-width: 640px) {
+  .product-list-grid {
+    grid-template-columns: 1fr !important;
+    gap: 16px;
+  }
+
+  .product-list-grid .list-product-card {
+    width: 100%;
+    padding: 12px;
+  }
+
+  .product-list-grid .list-product-image {
+    aspect-ratio: 4 / 5 !important;
+    margin-bottom: 12px !important;
+  }
+
+  .product-list-grid .list-product-body h3 {
+    font-size: 18px !important;
+    line-height: 1.1 !important;
+  }
+}
+
+/* ==========================================================================
+   2026-08-12 Final Filter Fix
+   分類篩選時，is-hidden 必須優先於卡片 display 規則
+   ========================================================================== */
+.product-list-grid .list-product-card.is-hidden {
+  display: none !important;
+}
+
+/* ==========================================================================
+   URBAN GEAR — iPad Pro Product Layout
+   961px–1100px
+   ========================================================================== */
+@media (min-width: 961px) and (max-width: 1100px) {
+  .product-list-page,
+  .product-list-hero,
+  .product-list-section,
+  .main-content,
+  .recommend-section {
+    max-width: 100vw;
+    overflow-x: hidden;
+  }
+
+  .product-list-hero {
+    padding: 56px 28px 40px !important;
+  }
+
+  .product-list-hero-content {
+    display: grid !important;
+    grid-template-columns: 90px minmax(0, 1fr) !important;
+    gap: 24px !important;
+    align-items: end !important;
+  }
+
+  .product-list-kicker {
+    writing-mode: vertical-rl !important;
+    grid-column: 1;
+    grid-row: 1 / 3;
+    margin: 0 !important;
+  }
+
+  .product-list-hero h1 {
+    grid-column: 2;
+    font-size: clamp(58px, 9vw, 82px) !important;
+  }
+
+  .product-list-hero-sub,
+  .product-list-hero-content > p:last-child {
+    grid-column: 2 !important;
+  }
+
+  .product-list-toolbar {
+    position: relative !important;
+    top: auto !important;
+    overflow: hidden !important;
+  }
+
+  .product-list-toolbar-inner {
+    width: 100%;
+    padding: 0 24px !important;
+    display: flex !important;
+    flex-direction: column !important;
+    align-items: stretch !important;
+  }
+
+  .product-list-categories {
+    width: 100%;
+    overflow-x: auto !important;
+    flex-wrap: nowrap !important;
+  }
+
+  .category-chip {
+    flex: 0 0 auto;
+    padding: 16px 20px !important;
+  }
+
+  .product-list-meta {
+    width: 100%;
+    padding: 12px 0 !important;
+    border-top: 1px solid var(--border-line);
+  }
+
+  .product-list-section {
+    padding: 36px 28px 0 !important;
+  }
+
+  .product-list-grid {
+    grid-template-columns: repeat(2, minmax(0,1fr)) !important;
+    gap: 16px !important;
+  }
+
+  .product-list-grid .list-product-card {
+    display: flex !important;
+    flex-direction: column !important;
+    min-height: 0 !important;
+    padding: 14px !important;
+  }
+
+  .product-list-grid .list-product-image {
+    width: 100% !important;
+    height: auto !important;
+    min-height: 0 !important;
+    aspect-ratio: 4 / 5 !important;
+    margin: 0 0 14px !important;
+  }
+
+  .product-list-grid .list-product-body {
+    padding: 0 !important;
+  }
+
+  .product-list-grid .list-product-body h3 {
+    font-size: 20px !important;
+    line-height: 1.05 !important;
+  }
+
+  /* 商品詳情：iPad Pro 改成上下式，不硬擠 8/4 欄 */
+  .main-content {
+    padding: 44px 28px 0 !important;
+  }
+
+  .product-wrapper {
+    display: grid !important;
+    grid-template-columns: 1fr !important;
+    gap: 28px !important;
+  }
+
+  .product-gallery {
+    grid-column: 1 !important;
+    position: static !important;
+    width: min(100%, 760px) !important;
+    margin: 0 auto !important;
+    display: grid !important;
+    grid-template-columns: 1fr !important;
+    gap: 14px !important;
+  }
+
+  .main-image {
+    grid-column: 1 !important;
+    grid-row: 1 !important;
+    width: 100% !important;
+    height: min(62vh, 620px) !important;
+    min-height: 0 !important;
+    aspect-ratio: auto !important;
+  }
+
+  .thumbnail-carousel {
+    grid-column: 1 !important;
+    grid-row: 2 !important;
+    display: grid !important;
+    grid-template-columns: 38px minmax(0,1fr) 38px !important;
+    grid-template-rows: 1fr !important;
+    width: 100% !important;
+    gap: 10px !important;
+  }
+
+  .thumb-viewport {
+    width: 100% !important;
+    height: 80px !important;
+    transform: none !important;
+    margin: 0 !important;
+  }
+
+  .thumbnail-list.thumb-track {
+    flex-direction: row !important;
+    gap: 8px !important;
+  }
+
+  .thumbnail-list.thumb-track .thumbnail {
+    width: 80px !important;
+    height: 80px !important;
+    flex: 0 0 80px !important;
+  }
+
+  .thumb-prev,
+  .thumb-next {
+    width: 38px !important;
+    height: 80px !important;
+    margin: 0 !important;
+    transform: none !important;
+  }
+
+  .product-info {
+    grid-column: 1 !important;
+    position: static !important;
+    width: min(100%, 760px) !important;
+    margin: 0 auto !important;
+    padding: 28px !important;
+  }
+
+  .recommend-section {
+    padding: 72px 28px 0 !important;
+  }
+
+  .recommend-carousel {
+    padding: 0 !important;
+    overflow: hidden;
+  }
+
+  .recommend-slider {
+    overflow-x: auto !important;
+    overflow-y: hidden;
+    scrollbar-width: none;
+  }
+
+  .recommend-slider::-webkit-scrollbar {
+    display: none;
+  }
+
+  .recommend-track {
+    display: grid !important;
+    grid-auto-flow: column;
+    grid-auto-columns: calc((100% - 14px) / 2);
+    gap: 14px !important;
+    width: auto !important;
+    transform: none !important;
+  }
+
+  .recommend-track .list-product-card {
+    width: auto !important;
+    min-width: 0 !important;
+  }
+
+  .carousel-btn {
     display: none !important;
   }
+}
 
-  .header .menu-toggle {
+/* ==========================================================================
+   URBAN GEAR — iPad Pro Product Detail Restore
+   961px–1100px：只讓 /product-detail 吃回上一版桌機式配置
+   商品列表的 iPad Pro 兩欄適應維持不變
+   ========================================================================== */
+@media (min-width: 961px) and (max-width: 1100px) {
+
+  /* Detail 主體恢復左右式 */
+  .main-content {
+    padding: 40px 28px 0 !important;
+  }
+
+  .product-wrapper {
+    display: grid !important;
+    grid-template-columns: repeat(12, minmax(0, 1fr)) !important;
+    gap: 22px !important;
+    align-items: start !important;
+  }
+
+  /* 左：直向縮圖 + 主圖 */
+  .product-gallery {
+    grid-column: 1 / 9 !important;
+    display: grid !important;
+    grid-template-columns: 80px minmax(0, 1fr) !important;
+    grid-template-rows: auto !important;
+    gap: 14px !important;
+    position: sticky !important;
+    top: calc(var(--marquee-height) + 72px + 16px) !important;
+    align-self: start !important;
+    width: 100% !important;
+    margin: 0 !important;
+  }
+
+  .main-image {
+    grid-column: 2 !important;
+    grid-row: 1 !important;
+    width: 100% !important;
+    height: min(66vh, 620px) !important;
+    min-height: 440px !important;
+    aspect-ratio: auto !important;
+  }
+
+  .main-image img {
+    width: 100% !important;
+    height: 100% !important;
+    object-fit: contain !important;
+    object-position: center !important;
+    transform: none !important;
+  }
+
+  .thumbnail-carousel {
+    grid-column: 1 !important;
+    grid-row: 1 !important;
+    display: grid !important;
+    grid-template-columns: 1fr !important;
+    grid-template-rows: 32px minmax(0, 1fr) 32px !important;
+    align-items: center !important;
+    gap: 8px !important;
+    width: 80px !important;
+    height: min(66vh, 620px) !important;
+  }
+
+  .thumb-viewport {
+    width: 80px !important;
+    height: 344px !important;
+    max-height: calc(100% - 80px) !important;
+    overflow: hidden !important;
+    transform: none !important;
+    margin: 0 auto !important;
+  }
+
+  .thumbnail-list.thumb-track {
     display: flex !important;
+    flex-direction: column !important;
+    width: 80px !important;
+    gap: 8px !important;
   }
 
-  .mobile-drawer {
-    display: block !important;
-    opacity: 0 !important;
-    visibility: hidden !important;
-    pointer-events: none !important;
-    transform: translateY(-8px);
+  .thumbnail-list.thumb-track .thumbnail {
+    width: 80px !important;
+    height: 80px !important;
+    flex: 0 0 80px !important;
+    aspect-ratio: 1 !important;
   }
 
-  .mobile-drawer.active {
-    opacity: 1 !important;
-    visibility: visible !important;
-    pointer-events: auto !important;
-    transform: translateY(0);
+  .thumb-prev,
+  .thumb-next {
+    width: 40px !important;
+    height: 80px !important;
+    margin: 0 !important;
+    transform: translateX(20px) rotate(90deg) !important;
   }
 
-  .header-container {
-    display: flex;
-    align-items: center;
+  /* 右：商品資訊卡恢復上一版 */
+  .product-info {
+    grid-column: 9 / 13 !important;
+    position: sticky !important;
+    top: calc(var(--marquee-height) + 72px + 16px) !important;
+    width: 100% !important;
+    margin: 0 !important;
+    padding: 24px !important;
+    align-self: start !important;
   }
 
-  .menu-toggle {
-    display: flex !important;
-    margin-left: auto;
+  .product-title {
+    font-size: clamp(36px, 4.5vw, 50px) !important;
   }
 
-  .nav-menu,
-  .nav-icons {
-    display: none !important;
-  }
+  /* 推薦區仍沿用目前 iPad Pro 設定，不改 */
 }
 
