@@ -1934,3 +1934,49 @@ body.lightbox-open { overflow: hidden; }
     font-size: 13px;
   }
 }
+
+/* ==========================================================================
+   2026-08-12 Tablet Header Fix — prevent duplicate navigation
+   769–1100px 統一使用 Mobile Drawer，Desktop Nav 隱藏
+   ========================================================================== */
+@media (min-width: 769px) and (max-width: 1100px) {
+  .header .nav-menu,
+  .header .nav-icons {
+    display: none !important;
+  }
+
+  .header .menu-toggle {
+    display: flex !important;
+  }
+
+  .mobile-drawer {
+    display: block !important;
+    opacity: 0 !important;
+    visibility: hidden !important;
+    pointer-events: none !important;
+    transform: translateY(-8px);
+  }
+
+  .mobile-drawer.active {
+    opacity: 1 !important;
+    visibility: visible !important;
+    pointer-events: auto !important;
+    transform: translateY(0);
+  }
+
+  .header-container {
+    display: flex;
+    align-items: center;
+  }
+
+  .menu-toggle {
+    display: flex !important;
+    margin-left: auto;
+  }
+
+  .nav-menu,
+  .nav-icons {
+    display: none !important;
+  }
+}
+
