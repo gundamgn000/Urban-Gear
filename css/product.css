@@ -2353,3 +2353,50 @@ body.lightbox-open { overflow: hidden; }
   /* 推薦區仍沿用目前 iPad Pro 設定，不改 */
 }
 
+/* ==========================================================================
+   2026-08-12 Desktop Product Card Size Adjustment
+   >1100px 商品列表改為三欄，避免單一篩選結果卡片過大
+   不影響 iPad Pro / Tablet / Mobile / Product Detail
+   ========================================================================== */
+@media (min-width: 1101px) {
+  .product-list-section {
+    max-width: 1080px;
+    padding-left: 32px;
+    padding-right: 32px;
+  }
+
+  .product-list-grid {
+    grid-template-columns: repeat(3, minmax(0, 1fr)) !important;
+    gap: 18px !important;
+  }
+
+  .product-list-grid .list-product-card {
+    width: 100%;
+    padding: 14px !important;
+  }
+
+  .product-list-grid .list-product-image {
+    aspect-ratio: 4 / 5 !important;
+    margin-bottom: 12px !important;
+  }
+
+  .product-list-grid .list-product-body h3 {
+    font-size: 17px !important;
+    line-height: 1.1 !important;
+    margin-bottom: 8px !important;
+  }
+
+  .product-list-grid .list-product-tag {
+    font-size: 9px;
+    margin-bottom: 5px;
+  }
+
+  .product-list-grid .list-product-price {
+    font-size: 13px;
+  }
+
+  .product-list-grid .list-product-link {
+    font-size: 10px;
+  }
+}
+
